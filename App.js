@@ -1,31 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import * as AiIcons from 'react-icons/ai';
-import { Ionicons } from '@expo/vector-icons';
+import * as React from 'react';
+import { Button, View, StyleSheet } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer } from '@react-navigation/native';
+import Home from './pages/Home';
+import Goal from './pages/Goal';
+import { DrawerContent } from './DrawerContent';
 
-export default function App() {
+const Drawer = createDrawerNavigator();
+
+function Sidebar() {
     return (
-        <View style={styles.container}>
-            <Ionicons name="menu" style={styles.icon} />
-            <Text style={styles.text}>Open up App.js to start working on your app!</Text>
-        </View>
+        <NavigationContainer>
+            <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
+                <Drawer.Screen name="오늘 뭐 해야 되지?" component={Home} title="main page" />
+                <Drawer.Screen name="Goal" component={Goal} title="Goal" />
+            </Drawer.Navigator>
+        </NavigationContainer>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    text: {
-        color: 'black',
-        fontWeight: 'bold',
-        fontSize: 40,
-    },
-    icon: {
-        fontSize: 50,
-    },
-});
+export default function App() {
+    return <Sidebar style={{ width: 100 }} />;
+}
+const styles = StyleSheet.create({});
