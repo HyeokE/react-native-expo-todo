@@ -13,7 +13,7 @@ function Sidebar() {
         <NavigationContainer>
             <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
                 <Drawer.Screen name="오늘 뭐 해야 되지?" component={Home} title="main page" />
-                <Drawer.Screen name="Goal" component={Goal} title="Goal" />
+                <Drawer.Screen name="목표" component={Goal} title="Goal" />
             </Drawer.Navigator>
         </NavigationContainer>
     );
