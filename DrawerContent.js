@@ -3,6 +3,8 @@ import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { View, StyleSheet } from 'react-native';
 import { Avatar, Title, Caption, Paragraph, Drawer, Text, TouchableRipple, Switch } from 'react-native-paper';
 import { AntDesign, FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 export function DrawerContent(props) {
     return (
@@ -35,32 +37,44 @@ export function DrawerContent(props) {
                         <DrawerItem
                             icon={({ color, size }) => <AntDesign name="home" color={color} size={size} />}
                             label="홈"
-                            // onPress{() => {props.navigation.navigate('Home')}}
+                            onPress={() => {
+                                props.navigation.navigate('Home');
+                            }}
                         />
                         <DrawerItem
                             icon={({ color, size }) => <FontAwesome name="sticky-note-o" color={color} size={size} />}
                             label="메모"
-                            // onPress{() => { }}
+                            onPress={() => {
+                                props.navigation.navigate('Note');
+                            }}
                         />
                         <DrawerItem
                             icon={({ color, size }) => <FontAwesome5 name="calendar-check" color={color} size={size} />}
                             label="완료 목록"
-                            // onPress{() => { }}
+                            onPress={() => {
+                                props.navigation.navigate('CheckedList');
+                            }}
                         />
                         <DrawerItem
                             icon={({ color, size }) => <FontAwesome5 name="calendar-times" color={color} size={size} />}
                             label="미완료 목록"
-                            // onPress{() => { }}
+                            onPress={() => {
+                                props.navigation.navigate('UncheckedList');
+                            }}
                         />
                         <DrawerItem
                             icon={({ color, size }) => <AntDesign name="infocirlceo" color={color} size={size} />}
                             label="문의하기"
-                            // onPress{() => { }}
+                            onPress={() => {
+                                props.navigation.navigate('Support');
+                            }}
                         />
                         <DrawerItem
                             icon={({ color, size }) => <Ionicons name="settings-outline" color={color} size={size} />}
                             label="설정하기"
-                            // onPress{() => { }}
+                            onPress={() => {
+                                props.navigation.navigate('Setting');
+                            }}
                         />
                     </Drawer.Section>
                 </View>

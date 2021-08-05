@@ -37,7 +37,6 @@ function Home() {
                     console.log('month changed', month);
                 }}
                 hideExtraDays={false}
-                // If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
                 // day from another month that is visible in calendar page. Default = false
                 disableMonthChange={true}
                 // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
