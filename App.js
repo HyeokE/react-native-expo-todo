@@ -8,7 +8,6 @@ import CheckedList from './screen/CheckedList';
 import UncheckedList from './screen/UncheckedList';
 import Support from './screen/Support';
 import Setting from './screen/Setting';
-import Todobox from './Todobox';
 
 import { DrawerContent } from './DrawerContent';
 
