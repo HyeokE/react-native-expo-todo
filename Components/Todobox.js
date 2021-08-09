@@ -15,10 +15,10 @@ export default function Todobox(props) {
 const styles = StyleSheet.create({
     item: {
         backgroundColor: '#FFF',
-        paddingLeft: 30,
-        paddingRight: 30,
-        paddingTop: 12,
-        paddingBottom: 12,
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingTop: 13,
+        paddingBottom: 13,
         borderWidth: 1,
         borderColor: '#9f9f9f9f',
         borderRadius: 10,
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginLeft: 35,
         marginRight: 35,
-        marginBottom: 15,
+        marginTop: 15,
     },
     itemLeft: {
         flexDirection: 'row', //가로로 배치
