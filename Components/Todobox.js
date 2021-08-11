@@ -1,20 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView, TextInput } from 'react-native';
 
 export default function Todobox(props) {
     return (
-        <View style={styles.item}>
-            <View style={styles.itemLeft}>
-                <TouchableOpacity style={styles.square}></TouchableOpacity>
-                <Text style={styles.itemText}>{props.text}</Text>
+        <>
+            <View style={styles.item}>
+                <View style={styles.itemLeft}>
+                    <TouchableOpacity style={styles.square}></TouchableOpacity>
+                    <Text style={styles.itemText}>{props.text}</Text>
+                </View>
+                <View style={styles.circular}></View>
             </View>
-            <View style={styles.circular}></View>
-        </View>
+        </>
     );
 }
 const styles = StyleSheet.create({
     item: {
-        backgroundColor: '#FFF',
+        backgroundColor: '#fff',
         paddingLeft: 15,
         paddingRight: 15,
         paddingTop: 13,

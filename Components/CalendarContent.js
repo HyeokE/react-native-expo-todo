@@ -13,10 +13,10 @@ LocaleConfig.defaultLocale = 'kr';
 export default function CalenderContent() {
     return (
         <>
-            <View style={{ alignItems: 'center', backgroundColor: '#fff' }}>
+            <View style={{ alignItems: 'center' }}>
                 <Calendar
                     markedDates={{}}
-                    style={{ width: 300 }}
+                    style={{ width: 300, borderRadius: 20 }} //달력 스타일 설정
                     // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
                     minDate={'2020-01-01'}
                     // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
