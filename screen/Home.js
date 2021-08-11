@@ -1,32 +1,55 @@
 import React from 'react';
-import { Text, View, StyleSheet, ToastAndroid, KeyboardAvoidingView, TextInput } from 'react-native';
+import { Text, View, StyleSheet, ToastAndroid, KeyboardAvoidingView, TextInput, SafeAreaView, ScrollView, Keyboard } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import Todobox from '../Components/Todobox';
 import CalendarContent from '../Components/CalendarContent';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useState } from 'react';
 
 function Home() {
+    const [task, setTask] = useState();
+    const [taskItems, setTaskItems] = useState([]);
+    const AddTask = () => {
+        Keyboard.dismiss();
+        setTaskItems([...taskItems, task]);
+        setTask(null);
+    };
+    const checkedTask = (index) => {
+        let itemsCopy = [...taskItems];
+        itemsCopy.splice(index, 1);
+        setTaskItems(itemsCopy);
+    };
+
     return (
         <>
-            <View style={styles.Homepage}>
-                <View>
-                    <CalendarContent style={styles.Calendar} />
-                </View>
-                <View style={{ backgroundColor: '#fff' }}>
-                    <Todobox text="hi"></Todobox>
-                    <Todobox text="hi1"></Todobox>
-                    <Todobox text="hi2"></Todobox>
-                    <Todobox text="hi3"></Todobox>
-                </View>
-            </View>
-            <KeyboardAvoidingView style={styles.taskinput}>
-                <TextInput style={styles.input} placeholder={'할 일 추가하기'}></TextInput>
-                <TouchableOpacity>
-                    <View style={styles.addbtn}>
-                        <Text>+</Text>
+            <SafeAreaView>
+                <View style={styles.Homepage}>
+                    <View style={styles.Calendar_Task}>
+                        <View>
+                            <CalendarContent style={styles.Calendar} />
+                        </View>
+                        <ScrollView style={styles.taskview}>
+                            <View>
+                                {taskItems.map((item, index) => {
+                                    return (
+                                        <TouchableOpacity key={index} onPress={() => checkedTask(index)}>
+                                            <Todobox text={item} />
+                                        </TouchableOpacity>
+                                    );
+                                })}
+                            </View>
+                        </ScrollView>
                     </View>
-                </TouchableOpacity>
-            </KeyboardAvoidingView>
+                </View>
+                <KeyboardAvoidingView style={styles.taskarea}>
+                    <TextInput style={styles.input} placeholder={'할 일 추가하기'} value={task} onChangeText={(task) => setTask(task)}></TextInput>
+                    <TouchableOpacity onPress={() => AddTask()}>
+                        <View style={styles.addbtn}>
+                            <Text>+</Text>
+                        </View>
+                    </TouchableOpacity>
+                </KeyboardAvoidingView>
+            </SafeAreaView>
         </>
     );
 }
@@ -34,18 +57,40 @@ function Home() {
 const styles = StyleSheet.create({
     Homepage: {
         // backgroundColor: '#fff',
+        height: '100%',
     },
-    Calendar: {},
-    taskinput: {
+    taskview: {
+        height: '36%',
+    },
+    taskarea: {
         position: 'absolute',
-        bottom: 60,
+        bottom: 20,
         width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
     },
-    input: {},
-    addbtn: {},
+    input: {
+        marginLeft: 10,
+        paddingHorizontal: 25,
+        backgroundColor: '#fff',
+        borderRadius: 20,
+        width: '70%',
+        height: 40,
+        borderWidth: 1,
+        borderColor: '#c0c0c0',
+    },
+    addbtn: {
+        backgroundColor: '#fff',
+        height: 40,
+        width: 40,
+        borderWidth: 1,
+        borderColor: '#c0c0c0',
+        borderRadius: 30,
+        marginRight: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
 
 export default Home;

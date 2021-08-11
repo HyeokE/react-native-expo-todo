@@ -13,10 +13,10 @@ LocaleConfig.defaultLocale = 'kr';
 export default function CalenderContent() {
     return (
         <>
-            <View style={{ alignItems: 'center' }}>
+            <View style={{ marginLeft: '10%', marginRight: '10%', marginBottom: '2%' }}>
                 <Calendar
                     markedDates={{}}
-                    style={{ width: 300, borderRadius: 20 }} //달력 스타일 설정
+                    style={{ borderRadius: 20, height: 365 }} //달력 스타일 설정
                     // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
                     minDate={'2020-01-01'}
                     // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
@@ -41,7 +41,7 @@ export default function CalenderContent() {
                     }}
                     hideExtraDays={false}
                     // day from another month that is visible in calendar page. Default = false
-                    disableMonthChange={true}
+                    disableMonthChange={false}
                     // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
                     firstDay={1}
                     // Hide day names. Default = false

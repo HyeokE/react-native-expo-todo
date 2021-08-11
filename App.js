@@ -16,7 +16,11 @@ const Drawer = createDrawerNavigator();
 function Sidebar() {
     return (
         <NavigationContainer>
-            <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
+            <Drawer.Navigator
+                // 헤더 삭제 후 버튼 제작 할 것
+                screenOptions={{ headerShown: true, headerStyle: { backgroundColor: 'transparent', elevation: 0, shadowOpacity: 0, shadowColor: 'transparent' } }}
+                drawerContent={(props) => <DrawerContent {...props} />}
+            >
                 <Drawer.Screen name="Home" component={Home} />
                 <Drawer.Screen name="Note" component={Note} />
                 <Drawer.Screen name="CheckedList" component={CheckedList} />
@@ -31,4 +35,11 @@ function Sidebar() {
 export default function App() {
     return <Sidebar style={{ width: 100 }} />;
 }
-const styles = StyleSheet.create({});
+const Styles = StyleSheet.create({
+    header: {
+        alignContent: 'space-between',
+        justifyContent: 'flex-start',
+        flexDirection: 'row',
+        width: 20,
+    },
+});
