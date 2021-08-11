@@ -1,12 +1,17 @@
 import React from 'react';
 import { Button, View, StyleSheet, Text } from 'react-native';
+import Header from '../Components/Header';
 
-function Support() {
+function Support({ navigation }) {
     return (
-        <View>
-            <Text>Support</Text>
-        </View>
+        <>
+            <Header />
+            <View>
+                <Text>Support</Text>
+            </View>
+        </>
     );
 }
+const Styles = StyleSheet.create({});
 
 export default Support;

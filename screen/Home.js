@@ -1,16 +1,20 @@
 import React from 'react';
-import { Text, View, StyleSheet, ToastAndroid, KeyboardAvoidingView, TextInput, SafeAreaView, ScrollView, Keyboard } from 'react-native';
+import { Button, Text, View, StyleSheet, ToastAndroid, KeyboardAvoidingView, TextInput, SafeAreaView, ScrollView, Keyboard } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import Todobox from '../Components/Todobox';
 import CalendarContent from '../Components/CalendarContent';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useState } from 'react';
+import IoIcons from 'react-native-vector-icons/Ionicons';
+import Header from '../Components/Header';
 
-function Home() {
+function Home({ navigation }) {
     const [task, setTask] = useState();
     const [taskItems, setTaskItems] = useState([]);
     const AddTask = () => {
         Keyboard.dismiss();
+        if (setTask == null) {
+        }
         setTaskItems([...taskItems, task]);
         setTask(null);
     };
@@ -22,34 +26,34 @@ function Home() {
 
     return (
         <>
-            <SafeAreaView>
-                <View style={styles.Homepage}>
-                    <View style={styles.Calendar_Task}>
-                        <View>
-                            <CalendarContent style={styles.Calendar} />
-                        </View>
-                        <ScrollView style={styles.taskview}>
-                            <View>
-                                {taskItems.map((item, index) => {
-                                    return (
-                                        <TouchableOpacity key={index} onPress={() => checkedTask(index)}>
-                                            <Todobox text={item} />
-                                        </TouchableOpacity>
-                                    );
-                                })}
-                            </View>
-                        </ScrollView>
+            <Header />
+
+            <View style={styles.Homepage}>
+                <View style={styles.Calendar_Task}>
+                    <View>
+                        <CalendarContent style={styles.Calendar} />
                     </View>
-                </View>
-                <KeyboardAvoidingView style={styles.taskarea}>
-                    <TextInput style={styles.input} placeholder={'할 일 추가하기'} value={task} onChangeText={(task) => setTask(task)}></TextInput>
-                    <TouchableOpacity onPress={() => AddTask()}>
-                        <View style={styles.addbtn}>
-                            <Text>+</Text>
+                    <ScrollView style={styles.taskview}>
+                        <View>
+                            {taskItems.map((item, index) => {
+                                return (
+                                    <TouchableOpacity key={index} onPress={() => checkedTask(index)}>
+                                        <Todobox text={item} />
+                                    </TouchableOpacity>
+                                );
+                            })}
                         </View>
-                    </TouchableOpacity>
-                </KeyboardAvoidingView>
-            </SafeAreaView>
+                    </ScrollView>
+                </View>
+            </View>
+            <KeyboardAvoidingView style={styles.taskarea}>
+                <TextInput style={styles.input} placeholder={'할 일 추가하기'} value={task} onChangeText={(task) => setTask(task)}></TextInput>
+                <TouchableOpacity onPress={() => AddTask()}>
+                    <View style={styles.addbtn}>
+                        <Text>+</Text>
+                    </View>
+                </TouchableOpacity>
+            </KeyboardAvoidingView>
         </>
     );
 }
@@ -64,7 +68,7 @@ const styles = StyleSheet.create({
     },
     taskarea: {
         position: 'absolute',
-        bottom: 20,
+        bottom: 30,
         width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
@@ -79,6 +83,7 @@ const styles = StyleSheet.create({
         height: 40,
         borderWidth: 1,
         borderColor: '#c0c0c0',
+        shadowRadius: 2,
     },
     addbtn: {
         backgroundColor: '#fff',

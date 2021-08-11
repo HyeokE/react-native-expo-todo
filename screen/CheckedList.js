@@ -1,10 +1,15 @@
 import React from 'react';
 import { Button, View, StyleSheet, Text } from 'react-native';
+import Header from '../Components/Header';
 
-export default function CheckedList() {
+export default function CheckedList({ navigation }) {
     return (
-        <View>
-            <Text>CheckedList</Text>
-        </View>
+        <>
+            <Header />
+            <View>
+                <Text>CheckedList</Text>
+            </View>
+        </>
     );
 }
+const Styles = StyleSheet.create({});

@@ -1,12 +1,17 @@
 import React from 'react';
 import { Button, View, StyleSheet, Text } from 'react-native';
+import Header from '../Components/Header';
 
-function Setting() {
+function Setting({ navigation }) {
     return (
-        <View>
-            <Text>Setting</Text>
-        </View>
+        <>
+            <Header />
+            <View>
+                <Text>Setting</Text>
+            </View>
+        </>
     );
 }
+const Styles = StyleSheet.create({});
 
 export default Setting;

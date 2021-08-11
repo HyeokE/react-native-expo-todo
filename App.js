@@ -8,34 +8,41 @@ import CheckedList from './screen/CheckedList';
 import UncheckedList from './screen/UncheckedList';
 import Support from './screen/Support';
 import Setting from './screen/Setting';
-
 import { DrawerContent } from './DrawerContent';
 
 const Drawer = createDrawerNavigator();
 
+function DrawerNavigate() {
+    return (
+        <Drawer.Navigator
+            // 헤더 삭제 후 버튼 제작 할 것
+            screenOptions={{ headerShown: false, headerStyle: { backgroundColor: 'transparent', elevation: 0, shadowOpacity: 0, shadowColor: 'transparent' } }}
+            drawerContent={(props) => <DrawerContent {...props} />}
+        >
+            <Drawer.Screen name="Home" component={Home} />
+            <Drawer.Screen name="Note" component={Note} />
+            <Drawer.Screen name="CheckedList" component={CheckedList} />
+            <Drawer.Screen name="UncheckedList" component={UncheckedList} />
+            <Drawer.Screen name="Support" component={Support} />
+            <Drawer.Screen name="Setting" component={Setting} />
+        </Drawer.Navigator>
+    );
+}
+
 function Sidebar() {
     return (
-        <NavigationContainer>
-            <Drawer.Navigator
-                // 헤더 삭제 후 버튼 제작 할 것
-                screenOptions={{ headerShown: true, headerStyle: { backgroundColor: 'transparent', elevation: 0, shadowOpacity: 0, shadowColor: 'transparent' } }}
-                drawerContent={(props) => <DrawerContent {...props} />}
-            >
-                <Drawer.Screen name="Home" component={Home} />
-                <Drawer.Screen name="Note" component={Note} />
-                <Drawer.Screen name="CheckedList" component={CheckedList} />
-                <Drawer.Screen name="UncheckedList" component={UncheckedList} />
-                <Drawer.Screen name="Support" component={Support} />
-                <Drawer.Screen name="Setting" component={Setting} />
-            </Drawer.Navigator>
-        </NavigationContainer>
+        <>
+            <NavigationContainer>
+                <DrawerNavigate />
+            </NavigationContainer>
+        </>
     );
 }
 
 export default function App() {
     return <Sidebar style={{ width: 100 }} />;
 }
-const Styles = StyleSheet.create({
+const styles = StyleSheet.create({
     header: {
         alignContent: 'space-between',
         justifyContent: 'flex-start',
