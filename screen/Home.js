@@ -6,7 +6,6 @@ import CalendarContent from '../Components/CalendarContent';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useState } from 'react';
 import IoIcons from 'react-native-vector-icons/Ionicons';
-import Header from '../Components/Header';
 
 function Home({ navigation }) {
     const [task, setTask] = useState();
@@ -26,14 +25,16 @@ function Home({ navigation }) {
 
     return (
         <>
-            <Header />
-
-            <View style={styles.Homepage}>
-                <View style={styles.Calendar_Task}>
+            <View style={Styles.TopIcon}>
+                <IoIcons name="menu" size={30} onPress={() => navigation.openDrawer()} />
+                <Text style={Styles.Header}>오늘 뭐 해야 되지?</Text>
+            </View>
+            <View style={Styles.Homepage}>
+                <View style={Styles.Calendar_Task}>
                     <View>
-                        <CalendarContent style={styles.Calendar} />
+                        <CalendarContent style={Styles.Calendar} />
                     </View>
-                    <ScrollView style={styles.taskview}>
+                    <ScrollView style={Styles.taskview}>
                         <View>
                             {taskItems.map((item, index) => {
                                 return (
@@ -46,10 +47,10 @@ function Home({ navigation }) {
                     </ScrollView>
                 </View>
             </View>
-            <KeyboardAvoidingView style={styles.taskarea}>
-                <TextInput style={styles.input} placeholder={'할 일 추가하기'} value={task} onChangeText={(task) => setTask(task)}></TextInput>
+            <KeyboardAvoidingView style={Styles.taskarea}>
+                <TextInput style={Styles.input} placeholder={'할 일 추가하기'} value={task} onChangeText={(task) => setTask(task)}></TextInput>
                 <TouchableOpacity onPress={() => AddTask()}>
-                    <View style={styles.addbtn}>
+                    <View style={Styles.addbtn}>
                         <Text>+</Text>
                     </View>
                 </TouchableOpacity>
@@ -58,7 +59,19 @@ function Home({ navigation }) {
     );
 }
 
-const styles = StyleSheet.create({
+const Styles = StyleSheet.create({
+    TopIcon: {
+        paddingTop: 40,
+        paddingLeft: 20,
+        paddingBottom: 10,
+        flexDirection: 'row',
+    },
+    Header: {
+        fontSize: 20,
+        marginLeft: 20,
+        marginTop: 4,
+        justifyContent: 'center',
+    },
     Homepage: {
         // backgroundColor: '#fff',
         height: '100%',
