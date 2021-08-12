@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, ToastAndroid } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
+import { useState } from 'react/cjs/react.development';
 
 LocaleConfig.locales['kr'] = {
     monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
@@ -9,22 +10,33 @@ LocaleConfig.locales['kr'] = {
     dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
 };
 LocaleConfig.defaultLocale = 'kr';
+function AddDate() {
+    // let selectdate (date) => {
+    // }
+}
+function CalenderContent() {
+    const [markedDates, setmarkedDates] = useState(null);
+    const [date, setDate] = useState(null);
 
-export default function CalenderContent() {
     return (
         <>
             <View style={{ marginLeft: '10%', marginRight: '10%', marginBottom: '2%' }}>
                 <Calendar
                     markedDates={{}}
-                    style={{ borderRadius: 20, height: 365 }} //달력 스타일 설정
+                    style={{ borderRadius: 20, height: 365, borderColor: '#c0c0c0', borderWidth: 1, shadowRadius: 2, shadowColor: '#c0c0c0' }} //달력 스타일 설정
                     // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
                     minDate={'2020-01-01'}
                     // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
                     maxDate={'2050-12-31'}
                     // Handler which gets executed on day press. Default = undefined
                     onDayPress={(day) => {
-                        console.log('selected day', day);
-                        return day;
+                        // console.log('selected day', day);
+                        //   "dateString": "2021-08-23",
+                        //   "day": 23,
+                        //   "month": 8,
+                        //   "timestamp": 1629676800000,
+                        //   "year": 2021,
+                        return day.dateString;
                         //안드로이드 알림창
                         //ToastAndroid.showWithGravity(day.dateString + '이 선택되었어요', ToastAndroid.SHORT, ToastAndroid.CENTER);
                     }}
@@ -61,3 +73,4 @@ export default function CalenderContent() {
         </>
     );
 }
+export default CalenderContent;

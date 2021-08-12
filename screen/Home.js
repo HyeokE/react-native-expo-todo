@@ -8,16 +8,16 @@ import { useState } from 'react';
 import IoIcons from 'react-native-vector-icons/Ionicons';
 
 function Home({ navigation }) {
-    const [task, setTask] = useState();
+    const [task, setTask] = useState(null);
     const [taskItems, setTaskItems] = useState([]);
     const AddTask = () => {
         Keyboard.dismiss();
-        if (setTask == null) {
-        }
         setTaskItems([...taskItems, task]);
         setTask(null);
     };
-    const checkedTask = (index) => {
+    const checkedTask = () => {};
+
+    const deleteTask = (index) => {
         let itemsCopy = [...taskItems];
         itemsCopy.splice(index, 1);
         setTaskItems(itemsCopy);
@@ -32,13 +32,18 @@ function Home({ navigation }) {
             <View style={Styles.Homepage}>
                 <View style={Styles.Calendar_Task}>
                     <View>
-                        <CalendarContent style={Styles.Calendar} />
+                        <CalendarContent style={Styles.Calendar} onChange={() => this.onDayPress()} />
                     </View>
                     <ScrollView style={Styles.taskview}>
                         <View>
                             {taskItems.map((item, index) => {
                                 return (
-                                    <TouchableOpacity key={index} onPress={() => checkedTask(index)}>
+                                    <TouchableOpacity
+                                        key={index}
+                                        onPress={() => {
+                                            deleteTask();
+                                        }}
+                                    >
                                         <Todobox text={item} />
                                     </TouchableOpacity>
                                 );
@@ -48,7 +53,14 @@ function Home({ navigation }) {
                 </View>
             </View>
             <KeyboardAvoidingView style={Styles.taskarea}>
-                <TextInput style={Styles.input} placeholder={'할 일 추가하기'} value={task} onChangeText={(task) => setTask(task)}></TextInput>
+                <TextInput
+                    style={Styles.input}
+                    placeholder={'할 일 추가하기'}
+                    value={task}
+                    onChangeText={(task) => {
+                        setTask(task);
+                    }}
+                ></TextInput>
                 <TouchableOpacity onPress={() => AddTask()}>
                     <View style={Styles.addbtn}>
                         <Text>+</Text>
@@ -76,6 +88,7 @@ const Styles = StyleSheet.create({
         // backgroundColor: '#fff',
         height: '100%',
     },
+
     taskview: {
         height: '36%',
     },
@@ -97,6 +110,7 @@ const Styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#c0c0c0',
         shadowRadius: 2,
+        shadowColor: '#c0c0c0',
     },
     addbtn: {
         backgroundColor: '#fff',
@@ -108,6 +122,8 @@ const Styles = StyleSheet.create({
         marginRight: 10,
         alignItems: 'center',
         justifyContent: 'center',
+        shadowRadius: 2,
+        shadowColor: '#c0c0c0',
     },
 });
 
