@@ -10,18 +10,26 @@ LocaleConfig.locales['kr'] = {
     dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
 };
 LocaleConfig.defaultLocale = 'kr';
-function AddDate() {
-    // let selectdate (date) => {
-    // }
-}
+
 function CalenderContent() {
+    const [selected, setSelected] = useState();
     const [markedDates, setmarkedDates] = useState(null);
     const [date, setDate] = useState(null);
 
+    const onDayPress = (day) => {
+        setSelected(day.dateString);
+    };
+    // const INITIAL_DATE = day;
+    // const onDayPress = (day) => {
+    //     const setState = (day = {
+    //         selected: day.dateString,
+    //     });
+    // };
     return (
         <>
             <View style={{ marginLeft: '10%', marginRight: '10%', marginBottom: '2%' }}>
                 <Calendar
+                    theme={{}}
                     markedDates={{}}
                     style={{ borderRadius: 20, height: 365, borderColor: '#c0c0c0', borderWidth: 1, shadowRadius: 2, shadowColor: '#c0c0c0' }} //달력 스타일 설정
                     // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
@@ -29,17 +37,39 @@ function CalenderContent() {
                     // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
                     maxDate={'2050-12-31'}
                     // Handler which gets executed on day press. Default = undefined
-                    onDayPress={(day) => {
-                        // console.log('selected day', day);
-                        //   "dateString": "2021-08-23",
-                        //   "day": 23,
-                        //   "month": 8,
-                        //   "timestamp": 1629676800000,
-                        //   "year": 2021,
-                        return day.dateString;
-                        //안드로이드 알림창
-                        //ToastAndroid.showWithGravity(day.dateString + '이 선택되었어요', ToastAndroid.SHORT, ToastAndroid.CENTER);
+
+                    // markedDates={ }
+                    onDayPress={onDayPress}
+                    // style={styles.calendar}
+                    // hideExtraDays
+                    markedDates={{
+                        [selected]: {
+                            selected: true,
+                            disableTouchEvent: true,
+                            selectedColor: '#A1E1FD',
+                            selectedTextColor: 'black',
+                        },
                     }}
+                    // markedDates={{ [onDayPress.setState.selected]: { selected: true } }}
+                    // theme={{
+                    //     selectedDayBackgroundColor: 'green',
+                    //     todayTextColor: 'green',
+                    //     arrowColor: 'green',
+                    // }}
+                    // onDayPress={(day) => {
+                    // console.log(day);
+
+                    // }}
+                    // console.log('selected day', day);
+                    //   "dateString": "2021-08-23",
+                    //   "day": 23,
+                    //   "month": 8,
+                    //   "timestamp": 1629676800000,
+                    //   "year": 2021,
+
+                    //안드로이드 알림창
+                    //ToastAndroid.showWithGravity(day.dateString + '이 선택되었어요', ToastAndroid.SHORT, ToastAndroid.CENTER);
+
                     // Handler which gets executed on day long press. Default = undefined
                     onDayLongPress={(day) => {
                         console.log('selected day', day);
