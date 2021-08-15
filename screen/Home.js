@@ -10,11 +10,17 @@ import IoIcons from 'react-native-vector-icons/Ionicons';
 function Home({ navigation }) {
     const [task, setTask] = useState(null);
     const [taskItems, setTaskItems] = useState([]);
+    const [day, setDay] = useState('');
+    const addDay = (date) => {
+        setDay(date);
+        console.log(day);
+    };
     const AddTask = () => {
         Keyboard.dismiss();
         setTaskItems([...taskItems, task]);
         setTask(null);
     };
+
     const checkedTask = () => {};
 
     const deleteTask = (index) => {
@@ -32,7 +38,7 @@ function Home({ navigation }) {
             <View style={Styles.Homepage}>
                 <View style={Styles.Calendar_Task}>
                     <View>
-                        <CalendarContent style={Styles.Calendar} onChange={() => this.onDayPress()} />
+                        <CalendarContent style={Styles.Calendar} onSelectDay={addDay} />
                     </View>
                     <ScrollView style={Styles.taskview}>
                         <View>
@@ -52,6 +58,7 @@ function Home({ navigation }) {
                     </ScrollView>
                 </View>
             </View>
+            <Text>{console.log(day)}</Text>
             <KeyboardAvoidingView style={Styles.taskarea}>
                 <TextInput
                     style={Styles.input}

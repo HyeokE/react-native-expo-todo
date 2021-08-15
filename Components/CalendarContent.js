@@ -11,13 +11,13 @@ LocaleConfig.locales['kr'] = {
 };
 LocaleConfig.defaultLocale = 'kr';
 
-function CalenderContent() {
+const CalenderContent = ({ onSelectDay }) => {
     const [selected, setSelected] = useState();
-    const [markedDates, setmarkedDates] = useState(null);
-    const [date, setDate] = useState(null);
 
     const onDayPress = (day) => {
         setSelected(day.dateString);
+        onSelectDay(day.dateString);
+        // console.log('selected day', day);
     };
     // const INITIAL_DATE = day;
     // const onDayPress = (day) => {
@@ -58,9 +58,7 @@ function CalenderContent() {
                     // }}
                     // onDayPress={(day) => {
                     // console.log(day);
-
                     // }}
-                    // console.log('selected day', day);
                     //   "dateString": "2021-08-23",
                     //   "day": 23,
                     //   "month": 8,
@@ -102,5 +100,5 @@ function CalenderContent() {
             </View>
         </>
     );
-}
+};
 export default CalenderContent;
