@@ -18,7 +18,7 @@ function Home({ navigation }) {
         // setDay(date + '-' + math.random());
         console.log(day);
     };
-    const AddTask = (day) => {
+    const AddTask = () => {
         Keyboard.dismiss();
         setTaskItems([...taskItems, { id: day + '-' + Math.random().toString(), text: task }]);
         setTask(null);
@@ -53,7 +53,7 @@ function Home({ navigation }) {
                                             deleteTask();
                                         }}
                                     >
-                                        <Todobox text={taskItems.text} />
+                                        <Todobox text={taskItems.text} id={taskItems.id} />
                                     </TouchableOpacity>
                                 );
                             })}
