@@ -6,6 +6,7 @@ import CalendarContent from '../Components/CalendarContent';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useState } from 'react';
 import IoIcons from 'react-native-vector-icons/Ionicons';
+// import TaskInsert from '../Components/TaskInsert';
 
 function Home({ navigation }) {
     const [task, setTask] = useState(null);
@@ -59,6 +60,7 @@ function Home({ navigation }) {
                 </View>
             </View>
             <Text>{console.log(day)}</Text>
+            {/* <TaskInsert onAddTodo={AddTask} /> */}
             <KeyboardAvoidingView style={Styles.taskarea}>
                 <TextInput
                     style={Styles.input}

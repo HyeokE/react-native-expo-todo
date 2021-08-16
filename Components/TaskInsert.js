@@ -1,8 +1,6 @@
 import React from 'react';
 import { Button, Text, View, StyleSheet, ToastAndroid, KeyboardAvoidingView, TextInput, SafeAreaView, ScrollView, Keyboard } from 'react-native';
-import { Calendar, LocaleConfig } from 'react-native-calendars';
-import Todobox from './Todobox';
-import CalendarContent from './CalendarContent';
+
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useState } from 'react';
 
@@ -14,19 +12,21 @@ const TaskInsert = ({ OnAddTask }) => {
     };
     const AddTask = () => {
         OnAddTask(Task);
-        setTask('');
+        setTask(null);
+        Keyboard.dismiss();
     };
-
-    <>
-        <KeyboardAvoidingView style={Styles.taskarea}>
-            <TextInput style={Styles.input} placeholder={'할 일 추가하기'} value={setTask} onChangeText={TaskInput}></TextInput>
-            <TouchableOpacity onPress={() => AddTask()}>
-                <View style={Styles.addbtn}>
-                    <Text>+</Text>
-                </View>
-            </TouchableOpacity>
-        </KeyboardAvoidingView>
-    </>;
+    return (
+        <>
+            <KeyboardAvoidingView style={Styles.taskarea}>
+                <TextInput style={Styles.input} placeholder={'할 일 추가하기'} value={Task} onChangeText={TaskInput} autoCorrect={false}></TextInput>
+                <TouchableOpacity onPress={() => AddTask}>
+                    <View style={Styles.addbtn}>
+                        <Text>+</Text>
+                    </View>
+                </TouchableOpacity>
+            </KeyboardAvoidingView>
+        </>
+    );
 };
 const Styles = StyleSheet.create({
     taskarea: {
