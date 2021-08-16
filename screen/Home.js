@@ -6,6 +6,7 @@ import CalendarContent from '../Components/CalendarContent';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useState } from 'react';
 import IoIcons from 'react-native-vector-icons/Ionicons';
+import math from 'react-native-math';
 // import TaskInsert from '../Components/TaskInsert';
 
 function Home({ navigation }) {
@@ -14,11 +15,12 @@ function Home({ navigation }) {
     const [day, setDay] = useState('');
     const addDay = (date) => {
         setDay(date);
+        // setDay(date + '-' + math.random());
         console.log(day);
     };
-    const AddTask = () => {
+    const AddTask = (day) => {
         Keyboard.dismiss();
-        setTaskItems([...taskItems, task]);
+        setTaskItems([...taskItems, { id: day + '-' + Math.random().toString(), text: task }]);
         setTask(null);
     };
 
@@ -43,15 +45,15 @@ function Home({ navigation }) {
                     </View>
                     <ScrollView style={Styles.taskview}>
                         <View>
-                            {taskItems.map((item, index) => {
+                            {taskItems.map((taskItems) => {
                                 return (
                                     <TouchableOpacity
-                                        key={index}
+                                        key={taskItems.id}
                                         onPress={() => {
                                             deleteTask();
                                         }}
                                     >
-                                        <Todobox text={item} />
+                                        <Todobox text={taskItems.text} />
                                     </TouchableOpacity>
                                 );
                             })}
@@ -70,7 +72,7 @@ function Home({ navigation }) {
                         setTask(task);
                     }}
                 ></TextInput>
-                <TouchableOpacity onPress={() => AddTask()}>
+                <TouchableOpacity onPress={() => AddTask(task)}>
                     <View style={Styles.addbtn}>
                         <Text>+</Text>
                     </View>
