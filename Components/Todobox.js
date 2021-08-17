@@ -8,11 +8,10 @@ export default function Todobox(props) {
                 <View style={styles.itemLeft}>
                     <TouchableOpacity style={styles.square}></TouchableOpacity>
                     <Text style={styles.itemText}>
-                        {props.id} 안녕
-                        {props.text}
+                        아이디 값 : {props.id}
+                        텍스트 : {props.text}
                     </Text>
                 </View>
-                <View style={styles.circular}></View>
             </View>
         </>
     );
@@ -57,12 +56,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignContent: 'center',
         textAlign: 'center',
-    },
-    circular: {
-        width: 12,
-        height: 12,
-        borderColor: '#55BCF6',
-        borderWidth: 2,
-        borderRadius: 2,
     },
 });
