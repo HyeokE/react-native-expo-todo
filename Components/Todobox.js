@@ -8,8 +8,9 @@ export default function Todobox(props) {
                 <View style={styles.itemLeft}>
                     <TouchableOpacity style={styles.square}></TouchableOpacity>
                     <Text style={styles.itemText}>
-                        아이디 값 : {props.id}
-                        텍스트 : {props.text}
+                        {props.day}
+                        {'  '}
+                        {props.text}
                     </Text>
                 </View>
             </View>
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
         marginLeft: 0,
     },
     itemText: {
-        maxWidth: '80%',
+        maxWidth: '90%',
         alignItems: 'center',
         alignContent: 'center',
         textAlign: 'center',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Text, View, StyleSheet, ToastAndroid, KeyboardAvoidingView, TextInput, SafeAreaView, ScrollView, Keyboard } from 'react-native';
+import { Button, Text, View, StyleSheet, KeyboardAvoidingView, TextInput, ScrollView, Keyboard } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import Todobox from '../Components/Todobox';
 import CalendarContent from '../Components/CalendarContent';
@@ -20,7 +20,7 @@ function Home({ navigation }) {
     };
     const AddTask = () => {
         Keyboard.dismiss();
-        setTaskItems([...taskItems, { id: day + '-' + Math.random().toString(), text: task }]);
+        setTaskItems([...taskItems, { id: day + '-' + Math.random().toString(), day: day, text: task, check: false }]);
         setTask(null);
     };
 
@@ -53,7 +53,7 @@ function Home({ navigation }) {
                                             deleteTask();
                                         }}
                                     >
-                                        <Todobox text={taskItems.text} id={taskItems.id} />
+                                        <Todobox text={taskItems.text} day={taskItems.day} />
                                     </TouchableOpacity>
                                 );
                             })}
