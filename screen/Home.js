@@ -7,11 +7,13 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useState } from 'react';
 import IoIcons from 'react-native-vector-icons/Ionicons';
 import math from 'react-native-math';
+import TodoComponent from '../Components/TodoComponent';
 // import TaskInsert from '../Components/TaskInsert';
 
 function Home({ navigation }) {
     const [task, setTask] = useState(null);
     const [taskItems, setTaskItems] = useState([]);
+    const [taskDate, setTaskDate] = useState([]);
     const [day, setDay] = useState('');
     const addDay = (date) => {
         setDay(date);
@@ -20,8 +22,13 @@ function Home({ navigation }) {
     };
     const AddTask = () => {
         Keyboard.dismiss();
-        setTaskItems([...taskItems, { id: day + '-' + Math.random().toString(), day: day, text: task, check: false }]);
+        setTaskItems([...taskItems, { id: day + '-' + Math.random().toString(), text: task, check: false }]);
         setTask(null);
+        AddTaskDate();
+        console.log('day:' + day);
+    };
+    const AddTaskDate = () => {
+        setTaskDate([{ id: day, taskItems }]);
     };
 
     const checkedTask = () => {};
@@ -43,6 +50,12 @@ function Home({ navigation }) {
                     <View>
                         <CalendarContent style={Styles.Calendar} onSelectDay={addDay} />
                     </View>
+                    <Text>
+                        {taskItems.map((taskItems) => {
+                            <TodoComponent text={taskItems.text} day={taskItems.day} />;
+                        })}
+                        ;
+                    </Text>
                     <ScrollView style={Styles.taskview}>
                         <View>
                             {taskItems.map((taskItems) => {

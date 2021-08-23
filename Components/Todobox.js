@@ -9,7 +9,7 @@ export default function Todobox(props) {
                     <TouchableOpacity style={styles.square}></TouchableOpacity>
                     <Text style={styles.itemText}>
                         {props.day}
-                        {'  '}
+
                         {props.text}
                     </Text>
                 </View>

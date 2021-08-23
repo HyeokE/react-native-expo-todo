@@ -2,12 +2,10 @@ import React from 'react';
 import { StyleSheet, ScrollView, Keyboard } from 'react-native';
 import Todobox from '../Components/Todobox';
 
-const TodoComponent = (taskItems, deleteTask, check) => {
+const TodoComponent = (text, day) => {
     return (
         <ScrollView style={Styles.taskview}>
-            {Array.from(taskItems).map((task) => (
-                <Todobox key={task.id} {...task} deleteTask={deleteTask} check={check} />
-            ))}
+            <Todobox key={task.id} text={text} deleteTask={deleteTask} check={check} day={day} />
         </ScrollView>
     );
 };

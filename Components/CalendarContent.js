@@ -14,8 +14,9 @@ LocaleConfig.defaultLocale = 'kr';
 
 const CalenderContent = ({ onSelectDay }) => {
     const [selected, setSelected] = useState();
-
+    // const [currentDay, setCurrentDay] = useState();
     const onDayPress = (day) => {
+        setSelected(getCurrentday);
         setSelected(day.dateString);
         onSelectDay(day.dateString);
         // console.log('selected day', day);
@@ -37,13 +38,14 @@ const CalenderContent = ({ onSelectDay }) => {
         day = day.length === 1 ? `0${day}` : day;
 
         return `${year}-${month}-${day}`;
+        console.log(`${year}-${month}-${day}`);
     };
     return (
         <>
             <View style={{ marginLeft: '10%', marginRight: '10%', marginBottom: '2%' }}>
                 <Calendar
                     theme={{}}
-                    current={getCurrentday()}
+                    current={getCurrentday}
                     style={{ borderRadius: 20, height: 365, borderColor: '#c0c0c0', borderWidth: 1, shadowRadius: 2, shadowColor: '#c0c0c0' }} //달력 스타일 설정
                     minDate={'2020-01-01'}
                     maxDate={'2050-12-31'}
