@@ -13,23 +13,18 @@ import TodoComponent from '../Components/TodoComponent';
 function Home({ navigation }) {
     const [task, setTask] = useState(null);
     const [taskItems, setTaskItems] = useState([]);
-    const [taskDate, setTaskDate] = useState([]);
     const [day, setDay] = useState('');
     const addDay = (date) => {
         setDay(date);
-        // setDay(date + '-' + math.random());
-        console.log(day);
     };
     const AddTask = () => {
         Keyboard.dismiss();
-        setTaskItems([...taskItems, { id: day + '-' + Math.random().toString(), text: task, check: false }]);
+        setTaskItems([...taskItems, { date : day, id: Math.random().toString(), text: task, check: false }]);
         setTask(null);
         AddTaskDate();
         console.log('day:' + day);
     };
-    const AddTaskDate = () => {
-        setTaskDate([{ id: day, taskItems }]);
-    };
+ 
 
     const checkedTask = () => {};
 
