@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Text, View, StyleSheet, KeyboardAvoidingView, TextInput, ScrollView, Keyboard } from 'react-native';
+import { Button, Text, View, StyleSheet, KeyboardAvoidingView, TextInput, ScrollView, Keyboard, FlatList } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import Todobox from '../Components/Todobox';
 import CalendarContent from '../Components/CalendarContent';
@@ -8,36 +8,38 @@ import { useState } from 'react';
 import IoIcons from 'react-native-vector-icons/Ionicons';
 import math from 'react-native-math';
 import TodoComponent from '../Components/TodoComponent';
-// import TaskInsert from '../Components/TaskInsert';
+import TaskInsert from '../Components/TaskInsert';
 
 function Home({ navigation }) {
-    const [task, setTask] = useState(null);
     const [taskItems, setTaskItems] = useState([]);
-    const [taskDate, setTaskDate] = useState([]);
     const [day, setDay] = useState('');
     const addDay = (date) => {
         setDay(date);
         // setDay(date + '-' + math.random());
         console.log(day);
     };
-    const AddTask = () => {
+    const pressHandler = (key) => {
+        console.log('delete');
+        setTaskItems((prevTask) => {
+            return prevTask.filter((taskItems) => taskItems.key != key);
+        });
+    };
+    const AddTask = (text) => {
+        setTaskItems((prevTask) => {
+            return [{ day: day, key: Math.random().toString(), text: text, check: false }, ...prevTask];
+        });
         Keyboard.dismiss();
-        setTaskItems([...taskItems, { id: day + '-' + Math.random().toString(), text: task, check: false }]);
-        setTask(null);
-        AddTaskDate();
-        console.log('day:' + day);
-    };
-    const AddTaskDate = () => {
-        setTaskDate([{ id: day, taskItems }]);
+        console.log(taskItems);
+        // console.log('day:' + day);
     };
 
-    const checkedTask = () => {};
+    // const checkedTask = () => {};
 
-    const deleteTask = (index) => {
-        let itemsCopy = [...taskItems];
-        itemsCopy.splice(index, 1);
-        setTaskItems(itemsCopy);
-    };
+    // const deleteTask = (index) => {
+    //     let itemsCopy = [...taskItems];
+    //     itemsCopy.splice(index, 1);
+    //     setTaskItems(itemsCopy);
+    // };
 
     return (
         <>
@@ -50,33 +52,18 @@ function Home({ navigation }) {
                     <View>
                         <CalendarContent style={Styles.Calendar} onSelectDay={addDay} />
                     </View>
-                    <Text>
-                        {taskItems.map((taskItems) => {
-                            <TodoComponent text={taskItems.text} day={taskItems.day} />;
-                        })}
-                        ;
-                    </Text>
-                    <ScrollView style={Styles.taskview}>
-                        <View>
-                            {taskItems.map((taskItems) => {
-                                return (
-                                    <TouchableOpacity
-                                        key={taskItems.id}
-                                        onPress={() => {
-                                            deleteTask();
-                                        }}
-                                    >
-                                        <Todobox text={taskItems.text} day={taskItems.day} />
-                                    </TouchableOpacity>
-                                );
-                            })}
-                        </View>
-                    </ScrollView>
+                    {/* <ScrollView style={Styles.taskview}> */}
+                    <View>
+                        <FlatList data={taskItems} renderItem={({ item }) => <Todobox item={item} pressHandler={pressHandler} />} />
+                    </View>
+
+                    {/* </ScrollView> */}
                 </View>
             </View>
-            <Text>{console.log(day)}</Text>
+
+            <TaskInsert AddTask={AddTask} />
             {/* <TaskInsert onAddTodo={AddTask} /> */}
-            <KeyboardAvoidingView style={Styles.taskarea}>
+            {/* <KeyboardAvoidingView style={Styles.taskarea}>
                 <TextInput
                     style={Styles.input}
                     placeholder={'할 일 추가하기'}
@@ -90,7 +77,7 @@ function Home({ navigation }) {
                         <Text>+</Text>
                     </View>
                 </TouchableOpacity>
-            </KeyboardAvoidingView>
+            </KeyboardAvoidingView> */}
         </>
     );
 }

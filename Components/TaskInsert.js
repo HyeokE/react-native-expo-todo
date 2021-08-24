@@ -4,22 +4,22 @@ import { Button, Text, View, StyleSheet, ToastAndroid, KeyboardAvoidingView, Tex
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useState } from 'react';
 
-const TaskInsert = ({ OnAddTask }) => {
-    const [Task, setTask] = useState('');
+const TaskInsert = ({ AddTask }) => {
+    const [text, setText] = useState('');
 
     const TaskInput = (newTask) => {
-        setTask(newTask);
-    };
-    const AddTask = () => {
-        OnAddTask(Task);
-        setTask(null);
-        Keyboard.dismiss();
+        setText(newTask);
     };
     return (
         <>
             <KeyboardAvoidingView style={Styles.taskarea}>
-                <TextInput style={Styles.input} placeholder={'할 일 추가하기'} value={Task} onChangeText={TaskInput} autoCorrect={false}></TextInput>
-                <TouchableOpacity onPress={() => AddTask}>
+                <TextInput style={Styles.input} placeholder={'할 일 추가하기'} value={text} onChangeText={TaskInput} autoCorrect={false}></TextInput>
+                <TouchableOpacity
+                    onPress={() => {
+                        AddTask(text);
+                        setText('');
+                    }}
+                >
                     <View style={Styles.addbtn}>
                         <Text>+</Text>
                     </View>
