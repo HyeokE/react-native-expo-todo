@@ -11,14 +11,19 @@ import TodoComponent from '../Components/TodoComponent';
 import TaskInsert from '../Components/TaskInsert';
 
 function Home({ navigation }) {
+    var dt = new Date();
+    var str = dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
+    // var findTask = taskItems.find(day){
+    //     return (taskItems.day == day)
+    // }
+
     const [taskItems, setTaskItems] = useState([]);
-    const [day, setDay] = useState('');
+    const [day, setDay] = useState(str);
     const addDay = (date) => {
         setDay(date);
-        // setDay(date + '-' + math.random());
-        console.log(day);
+        // console.log('day: ' + day);
     };
-    const pressHandler = (key) => {
+    const deleteTask = (key) => {
         console.log('delete');
         setTaskItems((prevTask) => {
             return prevTask.filter((taskItems) => taskItems.key != key);
@@ -29,7 +34,7 @@ function Home({ navigation }) {
             return [{ day: day, key: Math.random().toString(), text: text, check: false }, ...prevTask];
         });
         Keyboard.dismiss();
-        console.log(taskItems);
+        console.log(taskItems.day);
         // console.log('day:' + day);
     };
 
@@ -54,7 +59,7 @@ function Home({ navigation }) {
                     </View>
                     {/* <ScrollView style={Styles.taskview}> */}
                     <View>
-                        <FlatList data={taskItems} renderItem={({ item }) => <Todobox item={item} pressHandler={pressHandler} />} />
+                        <FlatList data={taskItems} renderItem={({ item }) => <Todobox item={item} deleteTask={deleteTask} />} />
                     </View>
 
                     {/* </ScrollView> */}

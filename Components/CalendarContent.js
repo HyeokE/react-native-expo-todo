@@ -27,26 +27,26 @@ const CalenderContent = ({ onSelectDay }) => {
     //         selected: day.dateString,
     //     });
     // };
-    const getCurrentday = () => {
-        const today = new Date();
+    // const getCurrentday = () => {
+    //     const today = new Date();
 
-        const year = String(today.getFullYear());
-        let month = String(today.getMonth() + 1);
-        let day = String(today.getDay());
+    //     const year = String(today.getFullYear());
+    //     let month = String(today.getMonth() + 1);
+    //     let day = String(today.getDay());
 
-        month = month.length === 1 ? `0${month}` : month;
-        day = day.length === 1 ? `0${day}` : day;
+    //     month = month.length === 1 ? `0${month}` : month;
+    //     day = day.length === 1 ? `0${day}` : day;
 
-        setCurrentDay(`${year}-${month}-${day}`);
-        console.log(`${year}-${month}-${day}`);
-    };
+    //     setCurrentDay(`${year}-${month}-${day}`);
+    //     console.log(`${year}-${month}-${day}`);
+    // };
     return (
         <>
             <View style={{ marginLeft: '10%', marginRight: '10%', marginBottom: '2%' }}>
                 <Calendar
-                    date={Date(console.log(Date()))}
+                    // date={Date(console.log(Date()))}
                     theme={{}}
-                    current={getCurrentday}
+                    // current={getCurrentday}
                     style={{ borderRadius: 20, height: 365, borderColor: '#c0c0c0', borderWidth: 1, shadowRadius: 2, shadowColor: '#c0c0c0' }} //달력 스타일 설정
                     minDate={'2020-01-01'}
                     maxDate={'2050-12-31'}

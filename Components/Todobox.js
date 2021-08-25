@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView, TextInput } from 'react-native';
 
-export default function Todobox({ item, pressHandler }) {
+export default function Todobox({ item, deleteTask }) {
     return (
         <>
             <View style={styles.item}>
                 <View style={styles.itemLeft}>
-                    <TouchableOpacity style={styles.square} onPress={() => pressHandler(item.key)}></TouchableOpacity>
+                    <TouchableOpacity style={styles.square} onPress={() => deleteTask(item.key)}></TouchableOpacity>
                     <Text style={styles.itemText}>{item.text}</Text>
                 </View>
             </View>
