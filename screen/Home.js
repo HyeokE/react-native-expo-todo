@@ -9,6 +9,32 @@ import IoIcons from 'react-native-vector-icons/Ionicons';
 import math from 'react-native-math';
 import TodoComponent from '../Components/TodoComponent';
 import TaskInsert from '../Components/TaskInsert';
+import * as firebase from 'firebase';
+// Import the functions you need from the SDKs you need
+import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+    apiKey: 'AIzaSyAKlOgKb2Mck6YbGAPfeNkoWA0KW0en5hA',
+    authDomain: 'native-todo-10345.firebaseapp.com',
+    databaseURL: 'https://native-todo-10345-default-rtdb.firebaseio.com',
+    projectId: 'native-todo-10345',
+    storageBucket: 'native-todo-10345.appspot.com',
+    messagingSenderId: '769850773741',
+    appId: '1:769850773741:web:633325c2d7a79397433ce4',
+    measurementId: 'G-CKSGW0F2WZ',
+};
+if (firebase.apps.length === 0) {
+    firebase.initializeApp(firebase.Config);
+}
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 function Home({ navigation }) {
     var dt = new Date();

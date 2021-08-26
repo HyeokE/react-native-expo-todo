@@ -81,6 +81,15 @@ export function DrawerContent(props) {
             </DrawerContentScrollView>
             <Drawer.Section style={{ marginLeft: 15 }}>
                 <DrawerItem
+                    icon={({ color, size }) => <AntDesign name="login" color={color} size={size} />}
+                    label="로그인"
+                    onPress={() => {
+                        props.navigation.navigate('Register');
+                    }}
+                />
+            </Drawer.Section>
+            <Drawer.Section style={{ marginLeft: 15 }}>
+                <DrawerItem
                     icon={({ color, size }) => <AntDesign name="logout" color={color} size={size} />}
                     label="로그아웃"
                     // onPress{() => { }}
