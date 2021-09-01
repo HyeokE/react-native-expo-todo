@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Swipeout from 'react-native-swipeout';
 
 export default function Todobox({ item, deleteTask }) {
     return (
@@ -8,9 +7,8 @@ export default function Todobox({ item, deleteTask }) {
             <View style={styles.item}>
                 <View style={styles.itemLeft}>
                     <TouchableOpacity style={styles.square} onPress={() => deleteTask(item.key)}></TouchableOpacity>
-                    <Swipout right={swipeoutBtns}>
-                        <Text style={styles.itemText}>{item.text}</Text>
-                    </Swipout>
+
+                    <Text style={styles.itemText}>{item.text}</Text>
                 </View>
             </View>
         </>

@@ -9,7 +9,6 @@ import IoIcons from 'react-native-vector-icons/Ionicons';
 import math from 'react-native-math';
 import TodoComponent from '../Components/TodoComponent';
 import TaskInsert from '../Components/TaskInsert';
-import * as firebase from 'firebase';
 
 function Register() {
     const onSignup = () => {

@@ -9,20 +9,6 @@ import UncheckedList from './screen/UncheckedList';
 import Support from './screen/Support';
 import Setting from './screen/Setting';
 import { DrawerContent } from './DrawerContent';
-// import * as firebase from 'firebase/app';
-import { firebase } from '@firebase/app';
-
-const firebaseConfig = {
-    apiKey: 'AIzaSyAKlOgKb2Mck6YbGAPfeNkoWA0KW0en5hA',
-    authDomain: 'native-todo-10345.firebaseapp.com',
-    projectId: 'native-todo-10345',
-    storageBucket: 'native-todo-10345.appspot.com',
-    messagingSenderId: '769850773741',
-    appId: '1:769850773741:web:633325c2d7a79397433ce4',
-    measurementId: 'G-CKSGW0F2WZ',
-};
-
-// const firebase = require('firebase');
 
 const Drawer = createDrawerNavigator();
 
