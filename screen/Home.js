@@ -7,8 +7,19 @@ import CalendarContent from '../Components/CalendarContent';
 import { useState } from 'react';
 import IoIcons from 'react-native-vector-icons/Ionicons';
 import TaskInsert from '../Components/TaskInsert';
-import firbase from '../firbase';
+import firbase from '../Components/firbase';
 console.log(firbase);
+// import firebase from 'firebase/app';
+
+// const firebaseConfig = {
+//     apiKey: 'AIzaSyAECbqIJDhl17dH0FcQw2bHRdptNmOolW8',
+//     authDomain: 'todo-native-expo.firebaseapp.com',
+//     projectId: 'todo-native-expo',
+//     storageBucket: 'todo-native-expo.appspot.com',
+//     messagingSenderId: '599204465404',
+//     appId: '1:599204465404:web:06a2a89a80824929d66579',
+// };
+// firebase.initializeApp(firebaseConfig);
 
 function Home({ navigation }) {
     var dt = new Date();
@@ -34,7 +45,7 @@ function Home({ navigation }) {
             return [{ day: day, key: Math.random().toString(), text: text, check: false }, ...prevTask];
         });
         Keyboard.dismiss();
-        console.log(taskItems.day);
+        console.log(taskItems);
         // console.log('day:' + day);
     };
 
