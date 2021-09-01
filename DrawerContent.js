@@ -1,12 +1,12 @@
 import React from 'react';
+import { useState } from 'react';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { View, StyleSheet } from 'react-native';
 import { Avatar, Title, Caption, Paragraph, Drawer, Text, TouchableRipple, Switch } from 'react-native-paper';
 import { AntDesign, FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 
 export function DrawerContent(props) {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     return (
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>

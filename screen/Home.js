@@ -9,21 +9,20 @@ import IoIcons from 'react-native-vector-icons/Ionicons';
 import TaskInsert from '../Components/TaskInsert';
 import firbase from '../Components/firbase';
 console.log(firbase);
-// import firebase from 'firebase/app';
-
-// const firebaseConfig = {
-//     apiKey: 'AIzaSyAECbqIJDhl17dH0FcQw2bHRdptNmOolW8',
-//     authDomain: 'todo-native-expo.firebaseapp.com',
-//     projectId: 'todo-native-expo',
-//     storageBucket: 'todo-native-expo.appspot.com',
-//     messagingSenderId: '599204465404',
-//     appId: '1:599204465404:web:06a2a89a80824929d66579',
-// };
-// firebase.initializeApp(firebaseConfig);
 
 function Home({ navigation }) {
     var dt = new Date();
-    var str = dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
+    var nowMonth = dt.getMonth() + 1;
+    var nowDate = dt.getDate();
+
+    if (dt.getMonth().toString().length == 1) {
+        nowMonth = '0' + (dt.getMonth() + 1).toString();
+    }
+    if (dt.getDate().toString().length == 1) {
+        nowDate = '0' + dt.getDate().toString();
+    }
+
+    var str = dt.getFullYear() + '-' + nowMonth + '-' + nowDate;
     // var findTask = taskItems.find(day){
     //     return (taskItems.day == day)
     // }
@@ -45,17 +44,14 @@ function Home({ navigation }) {
             return [{ day: day, key: Math.random().toString(), text: text, check: false }, ...prevTask];
         });
         Keyboard.dismiss();
+        // taskItems.map((day) => {
+        //     console.log(day.day);
+        // });
         console.log(taskItems);
         // console.log('day:' + day);
     };
 
     // const checkedTask = () => {};
-
-    // const deleteTask = (index) => {
-    //     let itemsCopy = [...taskItems];
-    //     itemsCopy.splice(index, 1);
-    //     setTaskItems(itemsCopy);
-    // };
 
     return (
         <>
