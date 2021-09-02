@@ -1,14 +1,5 @@
 import React from 'react';
 import { Button, Text, View, StyleSheet, KeyboardAvoidingView, TextInput, ScrollView, Keyboard, FlatList } from 'react-native';
-import { Calendar, LocaleConfig } from 'react-native-calendars';
-import Todobox from '../Components/Todobox';
-import CalendarContent from '../Components/CalendarContent';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useState } from 'react';
-import IoIcons from 'react-native-vector-icons/Ionicons';
-import math from 'react-native-math';
-import TodoComponent from '../Components/TodoComponent';
-import TaskInsert from '../Components/TaskInsert';
 
 function Register() {
     const onSignup = () => {

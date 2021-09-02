@@ -7,8 +7,9 @@ import CalendarContent from '../Components/CalendarContent';
 import { useState } from 'react';
 import IoIcons from 'react-native-vector-icons/Ionicons';
 import TaskInsert from '../Components/TaskInsert';
-import firbase from '../Components/firbase';
-console.log(firbase);
+import firbase from '../Components/frbase';
+// import { authService } from '../Components/frbase';
+// console.log(authService.currentUser);
 
 function Home({ navigation }) {
     var dt = new Date();
@@ -23,9 +24,6 @@ function Home({ navigation }) {
     }
 
     var str = dt.getFullYear() + '-' + nowMonth + '-' + nowDate;
-    // var findTask = taskItems.find(day){
-    //     return (taskItems.day == day)
-    // }
 
     const [taskItems, setTaskItems] = useState([]);
     const [day, setDay] = useState(str);
