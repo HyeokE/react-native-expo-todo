@@ -7,7 +7,8 @@ import CalendarContent from '../Components/CalendarContent';
 import { useState } from 'react';
 import IoIcons from 'react-native-vector-icons/Ionicons';
 import TaskInsert from '../Components/TaskInsert';
-import firbase from '../Components/frbase';
+
+// import firbase from '../Components/frbase';
 // import { authService } from '../Components/frbase';
 // console.log(authService.currentUser);
 

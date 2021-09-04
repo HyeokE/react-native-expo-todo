@@ -1,16 +1,29 @@
 import React from 'react';
 import { useState } from 'react';
-import { Button, View, StyleSheet, Text, Item, Label, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { Button, View, StyleSheet, Text, Item, Label, TextInput, TouchableOpacity, KeyboardAvoidingView, Alert } from 'react-native';
 import IoIcons from 'react-native-vector-icons/Ionicons';
+import { toLogin } from '../Components/frbase';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const onChange = (event) => {
-        console.log(event.target.name);
+    const onChangeID = (text) => {
+        setEmail(text);
+        console.log(email);
     };
-    const onSubmit = (event) => {
-        event.preventDefault();
+    const onChangePW = (text) => {
+        setPassword(text);
+        console.log(password);
+    };
+    const loginBtnPress = async ({ email, password }) => {
+        try {
+            const user = await toLogin({ email, password });
+            Alert.alert('Login', user.email);
+            console.log(user.email);
+        } catch (e) {
+            Alert.alert('LoginError', e.message);
+            console.log(e);
+        }
     };
     return (
         <>
@@ -21,17 +34,18 @@ function Login() {
                 <View style={Styles.EmailContent}>
                     <Text style={Styles.EmailPwText}>Email</Text>
                     <KeyboardAvoidingView style={Styles.taskarea}>
-                        <TextInput name="email" autoCorrect={false} autoCapitalize="none" style={Styles.EmailPwInput} onChange={onChange} />
+                        <TextInput name="email" autoCorrect={false} autoCapitalize="none" style={Styles.EmailPwInput} onChangeText={onChangeID} />
                     </KeyboardAvoidingView>
                 </View>
                 <View style={Styles.PwContent}>
                     <Text style={Styles.EmailPwText}>Password</Text>
                     <KeyboardAvoidingView style={Styles.taskarea}>
-                        <TextInput name="password" autoCorrect={false} autoCapitalize="none" style={Styles.EmailPwInput} onChange={onChange} />
+                        <TextInput name="password" autoCorrect={false} autoCapitalize="none" style={Styles.EmailPwInput} onChangeText={onChangePW} />
                     </KeyboardAvoidingView>
                 </View>
-                <View style={Styles.Footer}>
-                    <TouchableOpacity>
+
+                <View style={Styles.LoginRegister}>
+                    <TouchableOpacity onPress={loginBtnPress}>
                         <View style={Styles.LoginBtn}>
                             {/* <Button rounded success title="Login"></Button> */}
                             <Text style={Styles.LoginText}>로그인</Text>
@@ -43,6 +57,22 @@ function Login() {
                             <Text style={Styles.RegisterText}>회원가입</Text>
                         </View>
                     </TouchableOpacity>
+                </View>
+                <View style={Styles.anotherLogin}>
+                    <View>
+                        <TouchableOpacity>
+                            <View style={Styles.WithAnother}>
+                                {/* <Button rounded success title="Login"></Button> */}
+                                <Text style={Styles.WithAnotherText}>Continue with Google</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <View style={Styles.WithAnother}>
+                                {/* <Button rounded success title="Login"></Button> */}
+                                <Text style={Styles.WithAnotherText}>Continue with Github</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         </>
@@ -89,13 +119,12 @@ const Styles = StyleSheet.create({
         marginLeft: '10%',
         marginTop: '5%',
     },
-
     taskarea: {
         height: '10%',
     },
 
-    Footer: {
-        marginVertical: 50,
+    LoginRegister: {
+        marginTop: 40,
         marginHorizontal: 20,
         flexDirection: 'row',
         justifyContent: 'space-around',
@@ -144,6 +173,35 @@ const Styles = StyleSheet.create({
         alignItems: 'center',
         alignContent: 'center',
         alignItems: 'center',
+    },
+    anotherLogin: {
+        marginTop: 30,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    },
+    WithAnother: {
+        marginTop: 30,
+        marginHorizontal: 70,
+        width: 250,
+        borderRadius: 15,
+        height: 40,
+        borderWidth: 1,
+        flexDirection: 'row',
+        borderColor: '#c0c0c0',
+        shadowRadius: 2,
+        justifyContent: 'space-around',
+        shadowColor: '#c0c0c0',
+        backgroundColor: '#fff',
+        alignContent: 'center',
+        alignItems: 'center',
+    },
+    WithAnotherText: {
+        fontSize: 15,
+        marginHorizontal: 30,
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        alignContent: 'center',
     },
 });
 

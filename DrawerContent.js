@@ -27,7 +27,7 @@ export function DrawerContent(props, { isLogginedIn }) {
                 {/* 이름, 아이디 */}
                 <View style={{ alignItems: 'center', alignContent: 'center' }}>
                     <View style={{ marginHorizontal: 15, flexDirection: 'column' }}>
-                        <View>{isLogginedIn ? <LoginContent props={props} /> : <Text style={Styles.title}>User</Text>}</View>
+                        <View>{{ isLogginedIn } ? <LoginContent props={props} /> : <Text style={Styles.title}>User</Text>}</View>
                     </View>
                 </View>
 
