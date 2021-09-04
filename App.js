@@ -11,11 +11,13 @@ import Support from './screen/Support';
 import Setting from './screen/Setting';
 import Login from './screen/Login';
 import { DrawerContent } from './DrawerContent';
+import { render } from 'react-dom';
 
 const Drawer = createDrawerNavigator();
 
 function DrawerNavigate() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     return (
         <Drawer.Navigator
             // 헤더 삭제 후 버튼 제작 할 것
@@ -25,7 +27,7 @@ function DrawerNavigate() {
             <Drawer.Screen name="Home" component={Home} />
             <Drawer.Screen name="Note" component={Note} />
             <Drawer.Screen name="CheckedList" component={CheckedList} />
-            <Drawer.Screen name="UncheckedList" component={UncheckedList} />
+            <Drawer.Screen name="UncheckedList" component={UncheckedList} isLoggedIn={isLoggedIn} />
             <Drawer.Screen name="Support" component={Support} />
             <Drawer.Screen name="Setting" component={Setting} />
             <Drawer.Screen name="Login" component={Login} />

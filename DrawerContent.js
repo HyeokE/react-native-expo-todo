@@ -7,16 +7,13 @@ import { AntDesign, FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-ico
 function LoginContent(props) {
     return (
         <>
-            <TouchableOpacity style={Styles.LoginView}>
-                <AntDesign
-                    name="login"
-                    label="Login"
-                    size={20}
-                    style={Styles.LoginIcon}
-                    onPress={() => {
-                        props.props.navigation.navigate('Login');
-                    }}
-                />
+            <TouchableOpacity
+                style={Styles.LoginView}
+                onPress={() => {
+                    props.props.navigation.navigate('Login');
+                }}
+            >
+                <AntDesign name="login" label="Login" size={20} style={Styles.LoginIcon} />
                 <Text style={Styles.LoginText}>로그인, 회원가입하기</Text>
             </TouchableOpacity>
         </>
@@ -29,8 +26,8 @@ export function DrawerContent(props, { isLogginedIn }) {
             <DrawerContentScrollView {...props}>
                 {/* 이름, 아이디 */}
                 <View style={{ alignItems: 'center', alignContent: 'center' }}>
-                    <View style={{ marginLeft: 15, flexDirection: 'column' }}>
-                        <Text>{{ isLogginedIn } ? <LoginContent props={props} /> : <Text style={Styles.title}>User</Text>}</Text>
+                    <View style={{ marginHorizontal: 15, flexDirection: 'column' }}>
+                        <View>{isLogginedIn ? <LoginContent props={props} /> : <Text style={Styles.title}>User</Text>}</View>
                     </View>
                 </View>
 
@@ -88,29 +85,41 @@ export function DrawerContent(props, { isLogginedIn }) {
                     </Drawer.Section>
                 </View>
             </DrawerContentScrollView>
-
-            <Drawer.Section style={{ marginLeft: 15 }}>
-                <DrawerItem
-                    icon={({ color, size }) => <AntDesign name="logout" color={color} size={size} />}
-                    label="로그아웃"
-                    // onPress{() => { }}
-                />
-            </Drawer.Section>
+            <View>
+                {isLogginedIn ? (
+                    <Text />
+                ) : (
+                    <Drawer.Section style={{ marginLeft: 30 }}>
+                        <DrawerItem
+                            icon={({ color, size }) => <AntDesign name="logout" color={color} size={size} />}
+                            label="로그아웃"
+                            // onPress{() => { }}
+                        />
+                    </Drawer.Section>
+                )}
+            </View>
         </View>
     );
 }
 
 const Styles = StyleSheet.create({
     LoginView: {
+        marginHorizontal: 10,
+        paddingVertical: 15,
+        paddingHorizontal: 15,
         flexDirection: 'row',
-    },
-    LoginIcon: {
-        marginLeft: 0,
-        marginRight: 10,
+        alignContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        borderWidth: 1,
+        borderRadius: 10,
+        borderColor: '#c0c0c0',
+        shadowRadius: 2,
+        shadowColor: '#c0c0c0',
     },
     LoginText: {
         fontSize: 20,
-        paddingLeft: 10,
+        padding: 0,
     },
     setrow: {
         marginTop: 20,
@@ -130,9 +139,6 @@ const Styles = StyleSheet.create({
         marginRight: 15,
         marginLeft: 11,
     },
-    setProfile: {
-        paddingLeft: 20,
-    },
     setSidebarText: {
         fontSize: 14,
     },
@@ -141,9 +147,11 @@ const Styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     Drawer: {
-        paddingLeft: 25,
+        // paddingLeft: 8,
     },
     DrawerItem: {
-        paddingTop: 8,
+        paddingTop: 0,
+        paddingBottom: 10,
+        paddingLeft: 25,
     },
 });
