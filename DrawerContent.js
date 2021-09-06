@@ -20,14 +20,19 @@ function LoginContent(props) {
     );
 }
 
-export function DrawerContent(props, { isLogginedIn }) {
+export function DrawerContent(props) {
+    const { isLoggedIn, changeCheck } = props;
+    const press = () => {
+        console.log(props.isLoggedIn);
+    };
+
     return (
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView {...props}>
                 {/* 이름, 아이디 */}
                 <View style={{ alignItems: 'center', alignContent: 'center' }}>
-                    <View style={{ marginHorizontal: 15, flexDirection: 'column' }}>
-                        <View>{{ isLogginedIn } ? <LoginContent props={props} /> : <Text style={Styles.title}>User</Text>}</View>
+                    <View style={{ marginHorizontal: 20, flexDirection: 'column', marginVertical: 20 }}>
+                        <View>{props.isLoggedIn ? <Text style={Styles.title}>User</Text> : <LoginContent props={props} />}</View>
                     </View>
                 </View>
 
@@ -39,6 +44,7 @@ export function DrawerContent(props, { isLogginedIn }) {
                             icon={({ color, size }) => <AntDesign name="home" color={color} size={size} />}
                             label="홈"
                             onPress={() => {
+                                press();
                                 props.navigation.navigate('Home');
                             }}
                         />
@@ -86,16 +92,19 @@ export function DrawerContent(props, { isLogginedIn }) {
                 </View>
             </DrawerContentScrollView>
             <View>
-                {isLogginedIn ? (
-                    <Text />
-                ) : (
+                {props.isLoggedIn ? (
                     <Drawer.Section style={{ marginLeft: 30 }}>
                         <DrawerItem
                             icon={({ color, size }) => <AntDesign name="logout" color={color} size={size} />}
                             label="로그아웃"
-                            // onPress{() => { }}
+                            onPress={() => {
+                                console.log(changeCheck, isLoggedIn);
+                                changeCheck;
+                            }}
                         />
                     </Drawer.Section>
+                ) : (
+                    <Text />
                 )}
             </View>
         </View>
@@ -105,7 +114,8 @@ export function DrawerContent(props, { isLogginedIn }) {
 const Styles = StyleSheet.create({
     LoginView: {
         marginHorizontal: 10,
-        paddingVertical: 15,
+
+        paddingVertical: 20,
         paddingHorizontal: 15,
         flexDirection: 'row',
         alignContent: 'center',
