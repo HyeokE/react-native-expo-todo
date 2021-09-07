@@ -15,7 +15,7 @@ const app = !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : fir
 // const app = firebase.initializeApp(firebaseConfig);
 const Auth = app.auth();
 // firebase.initializeApp(firebaseConfig);
-
+export const firebaseInstance = firebase;
 export const toLogin = ({ email, password }) => {
     const { user } = Auth.signInWithEmailAndPassword(email, password);
     return user;

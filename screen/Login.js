@@ -1,37 +1,64 @@
+import ExpoStatusBar from 'expo-status-bar/build/ExpoStatusBar';
 import React from 'react';
 import { useState } from 'react';
 import { Button, View, StyleSheet, Text, Item, Label, TextInput, TouchableOpacity, KeyboardAvoidingView, Alert } from 'react-native';
 import IoIcons from 'react-native-vector-icons/Ionicons';
-import { toLogin } from '../Components/frbase';
+import { firebaseInstance, toLogin, authService } from '../Components/frbase';
 
 function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const onChangeID = (text) => {
-        setEmail(text);
-        console.log(email);
-    };
-    const onChangePW = (text) => {
-        setPassword(text);
-        console.log(password);
-    };
-    const loginBtnPress = async ({ email, password }) => {
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
+    // const onChangeID = (text) => {
+    //     setEmail(text);
+    //     console.log(email);
+    // };
+    // const onChangePW = (text) => {
+    //     setPassword(text);
+    //     console.log(password);
+    // };
+    var signInWithGoogleAsync = async () => {
         try {
-            const user = await toLogin({ email, password });
-            Alert.alert('Login', user.email);
-            console.log(user.email);
+            const result = await Expo.Google.logInAsync({
+                // androidClientId: 123,
+                iosClientId: '599204465404 - gnnehch96gvf816n44s24t3gqiroahsv.apps.googleusercontent.com',
+                scops: ['profile', 'email'],
+            });
+            if (result.type == 'success') {
+                return result.accessToken;
+            } else {
+                return { cancelled: true };
+            }
         } catch (e) {
-            Alert.alert('LoginError', e.message);
-            console.log(e);
+            return { error: true };
         }
     };
+    // let provider;
+    // const onSocialClickGoogle = async () => {
+    //     provider = new firebaseInstance.auth.GoogleAuthProvider();
+    //     const data = await authService.signInWithPopup(provider);
+    //     console.log(data);
+    // };
+    // const onSocialClickGithub = async () => {
+    //     provider = new firebaseInstance.auth.GithubAuthProvider();
+    //     const data = await authService.signInWithPopup(provider);
+    // };
+    // const loginBtnPress = async ({ email, password }) => {
+    //     try {
+    //         const user = await toLogin({ email, password });
+    //         Alert.alert('Login', user.email);
+    //         console.log(user.email);
+    //     } catch (e) {
+    //         Alert.alert('LoginError', e.message);
+    //         console.log(e);
+    //     }
+    // };
     return (
         <>
             <View style={Styles.Header}>
                 <Text style={{ fontSize: 30 }}>오늘 뭐 해야 되지?</Text>
             </View>
             <View>
-                <View style={Styles.EmailContent}>
+                {/* <View style={Styles.EmailContent}>
                     <Text style={Styles.EmailPwText}>Email</Text>
                     <KeyboardAvoidingView style={Styles.taskarea}>
                         <TextInput name="email" autoCorrect={false} autoCapitalize="none" style={Styles.EmailPwInput} onChangeText={onChangeID} />
@@ -43,32 +70,27 @@ function Login() {
                         <TextInput name="password" autoCorrect={false} autoCapitalize="none" style={Styles.EmailPwInput} onChangeText={onChangePW} />
                     </KeyboardAvoidingView>
                 </View>
-
                 <View style={Styles.LoginRegister}>
                     <TouchableOpacity onPress={loginBtnPress}>
                         <View style={Styles.LoginBtn}>
-                            {/* <Button rounded success title="Login"></Button> */}
                             <Text style={Styles.LoginText}>로그인</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <View style={Styles.RegisterBtn}>
-                            {/* <Button rounded success title="Login"></Button> */}
                             <Text style={Styles.RegisterText}>회원가입</Text>
                         </View>
                     </TouchableOpacity>
-                </View>
+                </View>{' '} */}
                 <View style={Styles.anotherLogin}>
                     <View>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => signInWithGoogleAsync()}>
                             <View style={Styles.WithAnother}>
-                                {/* <Button rounded success title="Login"></Button> */}
                                 <Text style={Styles.WithAnotherText}>Continue with Google</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity>
                             <View style={Styles.WithAnother}>
-                                {/* <Button rounded success title="Login"></Button> */}
                                 <Text style={Styles.WithAnotherText}>Continue with Github</Text>
                             </View>
                         </TouchableOpacity>
@@ -78,6 +100,7 @@ function Login() {
         </>
     );
 }
+
 const Styles = StyleSheet.create({
     // TopIcon: {
     //     paddingTop: 37,
@@ -86,7 +109,7 @@ const Styles = StyleSheet.create({
     //     flexDirection: 'row',
     // },
     Header: {
-        marginTop: '30%',
+        marginTop: '60%',
         marginBottom: '10%',
         flexDirection: 'row',
         justifyContent: 'space-around',
