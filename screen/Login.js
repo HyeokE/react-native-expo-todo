@@ -5,10 +5,11 @@ import { useState } from 'react';
 import { Button, View, StyleSheet, Text, Item, Label, TextInput, TouchableOpacity, KeyboardAvoidingView, Alert } from 'react-native';
 import IoIcons from 'react-native-vector-icons/Ionicons';
 import { firebaseInstance, toLogin, authService } from '../Components/frbase';
-import * as Google from 'expo-google-app-auth';
 import { NavigationContainer } from '@react-navigation/native';
+import { AuthContext } from '../Components/context';
 
-function Login() {
+function Login({ navigation }) {
+    // const { navigation, isLoggedIn } = props;
     // const [email, setEmail] = useState('');
     // const [password, setPassword] = useState('');
     // const onChangeID = (text) => {
@@ -19,49 +20,7 @@ function Login() {
     //     setPassword(text);
     //     console.log(password);
     // };
-    async function signInWithGoogleAsync() {
-        const config = await Google.logInAsync({
-            androidClientId: '599204465404-8tf419t9h3ruj189dmvtb2e9o1m8hggs.apps.googleusercontent.com',
-            iosClientId: '599204465404-gnnehch96gvf816n44s24t3gqiroahsv.apps.googleusercontent.com',
-            scopes: ['profile', 'email'],
-        });
-        Google.logInAsync(config)
-            .then((result) => {
-                const { type, user } = result;
-                if (type == 'success') {
-                    Alert.alert('Google Login Successful');
-                    setTimeout(() => Navigation.navigate('Home', { email, name }, 1000));
-                } else {
-                    Alert.alert('Google Login cancelled');
-                }
-                //
-            })
-            .catch((error) => {
-                console.log(error);
-                Alert.alert('error');
-                //
-            });
-    }
-    // let provider;
-    // const onSocialClickGoogle = async () => {
-    //     provider = new firebaseInstance.auth.GoogleAuthProvider();
-    //     const data = await authService.signInWithPopup(provider);
-    //     console.log(data);
-    // };
-    // const onSocialClickGithub = async () => {
-    //     provider = new firebaseInstance.auth.GithubAuthProvider();
-    //     const data = await authService.signInWithPopup(provider);
-    // };
-    // const loginBtnPress = async ({ email, password }) => {
-    //     try {
-    //         const user = await toLogin({ email, password });
-    //         Alert.alert('Login', user.email);
-    //         console.log(user.email);
-    //     } catch (e) {
-    //         Alert.alert('LoginError', e.message);
-    //         console.log(e);
-    //     }
-    // };
+    const { signInWithGoogleAsync } = React.useContext(AuthContext);
     return (
         <>
             <View style={Styles.Header}>
@@ -94,7 +53,11 @@ function Login() {
                 </View>{' '} */}
                 <View style={Styles.anotherLogin}>
                     <View>
-                        <TouchableOpacity onPress={signInWithGoogleAsync}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                signInWithGoogleAsync(navigation);
+                            }}
+                        >
                             <View style={Styles.WithAnother}>
                                 <Text style={Styles.WithAnotherText}>Continue with Google</Text>
                             </View>
@@ -110,7 +73,6 @@ function Login() {
         </>
     );
 }
-
 const Styles = StyleSheet.create({
     // TopIcon: {
     //     paddingTop: 37,
@@ -181,7 +143,6 @@ const Styles = StyleSheet.create({
         fontSize: 15,
         marginHorizontal: 50,
         flexDirection: 'row',
-        alignItems: 'center',
         alignContent: 'center',
         alignItems: 'center',
     },
@@ -205,7 +166,6 @@ const Styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         alignContent: 'center',
-        alignItems: 'center',
     },
     anotherLogin: {
         marginTop: 30,

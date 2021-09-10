@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { Avatar, Title, Caption, Paragraph, Drawer, TouchableRipple } from 'react-native-paper';
-import { Button, Text, View, StyleSheet, Keyboard, FlatList, TouchableOpacity } from 'react-native';
+import { Button, Text, View, StyleSheet, Keyboard, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { AntDesign, FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
 function LoginContent(props) {
     return (
@@ -21,9 +21,10 @@ function LoginContent(props) {
 }
 
 export function DrawerContent(props) {
-    const { isLoggedIn, changeCheck } = props;
+    const { isLoggedIn, changeCheck, userState } = props;
+    const name = props.userState.name;
     const press = () => {
-        console.log(props.isLoggedIn);
+        console.log(name);
     };
 
     return (
@@ -32,7 +33,7 @@ export function DrawerContent(props) {
                 {/* 이름, 아이디 */}
                 <View style={{ alignItems: 'center', alignContent: 'center' }}>
                     <View style={{ marginHorizontal: 20, flexDirection: 'column', marginVertical: 20 }}>
-                        <View>{props.isLoggedIn ? <Text style={Styles.title}>User</Text> : <LoginContent props={props} />}</View>
+                        <View>{props.isLoggedIn ? <Text style={Styles.title} text={props.userState.name} /> : <LoginContent props={props} />}</View>
                     </View>
                 </View>
 
@@ -99,7 +100,12 @@ export function DrawerContent(props) {
                             label="로그아웃"
                             onPress={() => {
                                 console.log(changeCheck, isLoggedIn);
-                                changeCheck;
+                                try {
+                                    changeCheck();
+                                    Alert.alert('로그아웃 되었습니다.');
+                                } catch (e) {
+                                    console.log(e.message);
+                                }
                             }}
                         />
                     </Drawer.Section>
