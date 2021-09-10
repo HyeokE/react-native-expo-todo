@@ -21,10 +21,12 @@ function LoginContent(props) {
 }
 
 export function DrawerContent(props) {
-    const { isLoggedIn, changeCheck, userState } = props;
-    const name = props.userState.name;
+    const { isLoggedIn, changeCheck } = props;
+    // var name = props.userState.name;
+    // var nameResult = name.lastIndexOf(' ');
+    // var lastName = name.subString(0, nameResult);
     const press = () => {
-        console.log(name);
+        // console.log(lastName);
     };
 
     return (
@@ -33,7 +35,7 @@ export function DrawerContent(props) {
                 {/* 이름, 아이디 */}
                 <View style={{ alignItems: 'center', alignContent: 'center' }}>
                     <View style={{ marginHorizontal: 20, flexDirection: 'column', marginVertical: 20 }}>
-                        <View>{props.isLoggedIn ? <Text style={Styles.title} text={props.userState.name} /> : <LoginContent props={props} />}</View>
+                        <View>{props.isLoggedIn ? <Text style={Styles.title} text={'dsaasd'} /> : <LoginContent props={props} />}</View>
                     </View>
                 </View>
 
@@ -99,10 +101,10 @@ export function DrawerContent(props) {
                             icon={({ color, size }) => <AntDesign name="logout" color={color} size={size} />}
                             label="로그아웃"
                             onPress={() => {
-                                console.log(changeCheck, isLoggedIn);
+                                // console.log(isLoggedIn);
                                 try {
                                     changeCheck();
-                                    Alert.alert('로그아웃 되었습니다.');
+                                    Alert.alert('로그아웃 되었습니다');
                                 } catch (e) {
                                     console.log(e.message);
                                 }

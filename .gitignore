@@ -9,6 +9,6 @@ npm-debug.*
 *.orig.*
 web-build/
 .env
-
+frbase.config.js
 # macOS
 .DS_Store

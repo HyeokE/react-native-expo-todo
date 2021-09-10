@@ -13,22 +13,83 @@ import Setting from './screen/Setting';
 import Login from './screen/Login';
 import { DrawerContent } from './DrawerContent';
 import * as Google from 'expo-google-app-auth';
-
+import * as firebase from 'firebase';
+import {firebaseConfig} from "./Components/frbase.config";
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+} else {
+    firebase.app();
+}
 export default function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const changeCheck = () => {
         setIsLoggedIn((isLoggedIn) => !isLoggedIn);
     };
-    const [userState, setUserState] = useState([
-        {
-            email: '',
-            name: '',
-        },
-    ]);
     const Drawer = createDrawerNavigator();
-
+    const onSignIn = googleUser => {
+        console.log('Google Auth Response', googleUser);
+        // We need to register an Observer on Firebase Auth to make sure auth is initialized.
+        var unsubscribe = firebase.auth().onAuthStateChanged(
+            function() {
+                unsubscribe();
+                // Check if we are already signed-in Firebase with the correct user.
+                try {
+                    // Build Firebase credential with the Google ID token.
+                    var credential = firebase.auth.GoogleAuthProvider.credential(
+                        googleUser.idToken,
+                        googleUser.accessToken
+                    );
+                    // Sign in with credential from the Google user.
+                    firebase
+                        .auth()
+                        .signInAndRetrieveDataWithCredential(credential)
+                        .then(function (result) {
+                            console.log('user signed in ');
+                            setIsLoggedIn(true);
+                            if (result.additionalUserInfo.isNewUser) {
+                                firebase
+                                    .database()
+                                    .ref('/users/' + result.user.uid)
+                                    .set({
+                                        gmail: result.user.email,
+                                        profile_picture: result.additionalUserInfo.profile.picture,
+                                        first_name: result.additionalUserInfo.profile.given_name,
+                                        last_name: result.additionalUserInfo.profile.family_name,
+                                        created_at: Date.now()
+                                    })
+                                    .then(function (snapshot) {
+                                        // console.log('Snapshot', snapshot);
+                                    });
+                            } else {
+                                firebase
+                                    .database()
+                                    .ref('/users/' + result.user.uid)
+                                    .update({
+                                        last_logged_in: Date.now()
+                                    });
+                            }
+                        })
+                        .catch(function (error) {
+                            // Handle Errors here.
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            // The email of the user's account used.
+                            var email = error.email;
+                            // The firebase.auth.AuthCredential type that was used.
+                            var credential = error.credential;
+                            // ...
+                        });
+                }
+                catch
+                {
+                    console.log('User already signed-in Firebase.');
+                }
+            }.bind(this)
+        );
+    }
     const authContext = React.useMemo(() => ({
+
         signInWithGoogleAsync: async (navigation) => {
             try {
                 const config = await Google.logInAsync({
@@ -37,19 +98,16 @@ export default function App() {
                     scopes: ['profile', 'email'],
                 });
                 if (config.type === 'success') {
-                    Alert.alert('Google Login Successful');
+                    onSignIn(config);
+                    Alert.alert('로그인 성공하였습니다');
                     setIsLoggedIn(true);
-                    setTimeout(() => navigation.navigate('Home'), 1000);
+                    setTimeout(() => navigation.navigate('Home'));
                     /*put your logic here, I set some states and navigate to home screen 
                        after successful signin.*/
-                    const googleUser = config.user;
-                    setUserState({
-                        email: googleUser.email,
-                        name: googleUser.name,
-                    });
+
                     return config.accessToken;
                 } else {
-                    Alert.alert('Login Cancelled');
+                    Alert.alert('로그인 취소되었습니다');
                     return { cancelled: true };
                 }
             } catch (e) {
@@ -65,7 +123,7 @@ export default function App() {
                 <Drawer.Navigator
                     // 헤더 삭제 후 버튼 제작 할 것
                     screenOptions={{ headerShown: false, headerStyle: { backgroundColor: 'transparent', elevation: 0, shadowOpacity: 0, shadowColor: 'transparent' } }}
-                    drawerContent={(props) => <DrawerContent isLoggedIn={isLoggedIn} userState={userState} changeCheck={changeCheck} {...props} />}
+                    drawerContent={(props) => <DrawerContent isLoggedIn={isLoggedIn} changeCheck={changeCheck} {...props} />}
                 >
                     <Drawer.Screen name="Home" component={Home} />
                     <Drawer.Screen name="Note" component={Note} />
