@@ -19,9 +19,9 @@ import TaskInsert from "../Components/TaskInsert";
 import { SwipeListView } from "react-native-swipe-list-view";
 
 function Home({ navigation }) {
-  var dt = new Date();
-  var nowMonth = dt.getMonth() + 1;
-  var nowDate = dt.getDate();
+  let dt = new Date();
+  let nowMonth = dt.getMonth() + 1;
+  let nowDate = dt.getDate();
 
   if (dt.getMonth().toString().length == 1) {
     nowMonth = "0" + (dt.getMonth() + 1).toString();
@@ -30,10 +30,11 @@ function Home({ navigation }) {
     nowDate = "0" + dt.getDate().toString();
   }
 
-  var str = dt.getFullYear() + "-" + nowMonth + "-" + nowDate;
+  let str = dt.getFullYear() + "-" + nowMonth + "-" + nowDate;
 
   const [taskItems, setTaskItems] = useState([]);
   const [day, setDay] = useState(str);
+
   const addDay = (date) => {
     setDay(date);
     // console.log('day: ' + day);
@@ -41,7 +42,7 @@ function Home({ navigation }) {
   const deleteTask = (key) => {
     console.log("delete");
     setTaskItems((prevTask) => {
-      return prevTask.filter((taskItems) => taskItems.key != key);
+      return prevTask.filter((taskItems) => taskItems.key !== key);
     });
   };
   const checkTask = (key) => {
@@ -87,60 +88,43 @@ function Home({ navigation }) {
       rowMap[rowKey].closeRow();
     }
   };
+
   return (
     <>
-      <ScrollView>
-        <View style={Styles.TopIcon}>
-          <IoIcons
-            name="menu"
-            size={30}
-            onPress={() => navigation.openDrawer()}
-          />
-          <Text style={Styles.Header}>오늘 뭐 해야 되지?</Text>
-        </View>
-        <View style={Styles.Homepage}>
-          <View style={Styles.Calendar_Task}>
-            <View>
-              <CalendarContent style={Styles.Calendar} onSelectDay={addDay} />
-            </View>
-            {/* <ScrollView style={Styles.taskview}> */}
-            <View>
-              <SwipeListView
-                renderHiddenItem={renderHiddenItem}
-                rightOpenValue={-145}
-                previewRowKey={"0"}
-                previewOpenValue={-40}
-                previewOpenDelay={3000}
-                data={taskItems}
-                renderItem={({ item }) => (
-                  <Todobox item={item} deleteTask={deleteTask} />
-                )}
-              />
-            </View>
-
-            {/* </ScrollView> */}
-          </View>
-        </View>
-      </ScrollView>
-      <View style={{ marginTop: 85 }}>
-        <TaskInsert AddTask={AddTask} />
+      <View style={Styles.TopIcon}>
+        <IoIcons
+          name="menu"
+          size={30}
+          onPress={() => navigation.openDrawer()}
+        />
+        <Text style={Styles.Header}>오늘 뭐 해야 되지?</Text>
       </View>
-      {/* <TaskInsert onAddTodo={AddTask} /> */}
-      {/* <KeyboardAvoidingView style={Styles.taskarea}>
-                <TextInput
-                    style={Styles.input}
-                    placeholder={'할 일 추가하기'}
-                    value={task}
-                    onChangeText={(task) => {
-                        setTask(task);
-                    }}
-                ></TextInput>
-                <TouchableOpacity onPress={() => AddTask(task)}>
-                    <View style={Styles.addbtn}>
-                        <Text>+</Text>
-                    </View>
+
+      <View style={Styles.Homepage}>
+        <View style={Styles.CalendarTask}>
+          <CalendarContent style={Styles.Calendar} onSelectDay={addDay} />
+        </View>
+        <View style={Styles.TodoTask}>
+          <ScrollView>
+            <SwipeListView
+              renderHiddenItem={renderHiddenItem}
+              rightOpenValue={-145}
+              previewRowKey={"0"}
+              previewOpenValue={0}
+              previewOpenDelay={3000}
+              data={taskItems}
+              renderItem={({ item }) => (
+                <TouchableOpacity>
+                  <Todobox item={item} deleteTask={deleteTask} />
                 </TouchableOpacity>
-            </KeyboardAvoidingView> */}
+              )}
+            />
+          </ScrollView>
+        </View>
+        <View style={Styles.taskPart}>
+          <TaskInsert AddTask={AddTask} />
+        </View>
+      </View>
     </>
   );
 }
@@ -163,17 +147,6 @@ const Styles = StyleSheet.create({
     height: "100%",
   },
 
-  taskview: {
-    height: "36%",
-  },
-  taskarea: {
-    position: "absolute",
-    bottom: 30,
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
-  },
   input: {
     marginLeft: 10,
     paddingHorizontal: 25,
@@ -199,6 +172,16 @@ const Styles = StyleSheet.create({
     shadowRadius: 2,
     shadowColor: "#c0c0c0",
   },
+  CalendarTask: {
+    height: 365,
+  },
+  TodoTask: {
+    height: 300,
+    // backgroundColor: "black",
+  },
+  taskPart: {
+    paddingVertical: 25,
+  },
   rowFront: {
     alignItems: "center",
     backgroundColor: "#CCC",
@@ -208,11 +191,10 @@ const Styles = StyleSheet.create({
     height: 50,
   },
   rowBack: {
-    backgroundColor: "#fff",
+    backgroundColor: "transparent",
     paddingLeft: 40,
     paddingRight: 15,
     paddingTop: 13,
-    borderWidth: 1,
     borderColor: "#9f9f9f9f",
     borderRadius: 10,
     shadowRadius: 2,
@@ -221,12 +203,12 @@ const Styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     height: 48,
-    marginLeft: 160,
+    marginLeft: 35,
     marginRight: 35,
     marginTop: 15,
   },
   backTextWhite: {
-    color: "white",
+    color: "black",
   },
   backRightBtn: {
     alignItems: "center",
