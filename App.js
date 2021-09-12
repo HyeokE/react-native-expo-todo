@@ -23,20 +23,20 @@ import { DrawerContent } from "./DrawerContent";
 import * as Google from "expo-google-app-auth";
 import * as firebase from "firebase";
 import { firebaseConfig } from "./Components/frbase.config";
-import Todobox from "./Components/Todobox";
-import { SwipeListView } from "react-native-swipe-list-view";
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 } else {
   firebase.app();
 }
+
 export default function App() {
+  const Drawer = createDrawerNavigator();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const changeCheck = () => {
     setIsLoggedIn((isLoggedIn) => !isLoggedIn);
   };
-  const Drawer = createDrawerNavigator();
+
   const onSignIn = (googleUser) => {
     console.log("Google Auth Response", googleUser);
     // We need to register an Observer on Firebase Auth to make sure auth is initialized.
@@ -68,6 +68,7 @@ export default function App() {
                     last_name: result.additionalUserInfo.profile.family_name,
                     created_at: Date.now(),
                   })
+
                   .then(function (snapshot) {
                     // console.log('Snapshot', snapshot);
                   });
@@ -110,9 +111,7 @@ export default function App() {
           onSignIn(config);
           Alert.alert("로그인 성공하였습니다");
           setIsLoggedIn(true);
-          setTimeout(() => navigation.navigate("Home"));
-          /*put your logic here, I set some states and navigate to home screen
-                       after successful signin.*/
+          setTimeout(() => navigation.navigate("Home"), 1000);
 
           return config.accessToken;
         } else {

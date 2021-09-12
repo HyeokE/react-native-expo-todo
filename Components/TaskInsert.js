@@ -15,7 +15,7 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useState } from "react";
 
-const TaskInsert = ({ AddTask }) => {
+const TaskInsert = ({ AddTask, filterItemsDay, onSelectDay }) => {
   const [text, setText] = useState("");
 
   const TaskInput = (newTask) => {
@@ -35,6 +35,7 @@ const TaskInsert = ({ AddTask }) => {
           onPress={() => {
             AddTask(text);
             setText("");
+            console.log(onSelectDay);
           }}
         >
           <View style={Styles.addbtn}>

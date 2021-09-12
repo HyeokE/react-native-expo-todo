@@ -8,7 +8,10 @@ export default function Todobox({ item, deleteTask }) {
         <TouchableOpacity>
           <View style={styles.itemLeft}>
             <View style={styles.square}></View>
-            <Text style={styles.itemText}>{item.text}</Text>
+            <Text style={styles.itemText}>
+              {item.day}
+              {item.text}
+            </Text>
           </View>
         </TouchableOpacity>
       </View>

@@ -17,6 +17,7 @@ import { useState } from "react";
 import IoIcons from "react-native-vector-icons/Ionicons";
 import TaskInsert from "../Components/TaskInsert";
 import { SwipeListView } from "react-native-swipe-list-view";
+import { AuthContext } from "../Components/context";
 
 function Home({ navigation }) {
   let dt = new Date();
@@ -29,44 +30,49 @@ function Home({ navigation }) {
   if (dt.getDate().toString().length == 1) {
     nowDate = "0" + dt.getDate().toString();
   }
-
   let str = dt.getFullYear() + "-" + nowMonth + "-" + nowDate;
-
-  const [taskItems, setTaskItems] = useState([]);
   const [day, setDay] = useState(str);
+  const [taskItems, setTaskItems] = useState([]);
+  const [task, setTask] = useState([]);
 
-  const addDay = (date) => {
+  const onSelectDay = (date) => {
     setDay(date);
     // console.log('day: ' + day);
+    return date;
+  };
+  const filterItemsDay = (day) => {
+    const taskList = taskItems.filter((item) => item.day == day);
+    setTask(taskList);
   };
   const deleteTask = (key) => {
     console.log("delete");
     setTaskItems((prevTask) => {
-      return prevTask.filter((taskItems) => taskItems.key !== key);
+      return prevTask.filter((taskItems) => taskItems.key != key);
     });
   };
-  const checkTask = (key) => {
-    console.log("delete");
-    setTaskItems((prevTask) => {
-      return prevTask.filter((taskItems) => !taskItems.check);
-    });
-  };
+  // checkTask: (key) => {
+  //   console.log("check");
+  //   setTaskItems((prevTask) => {
+  //     return prevTask.filter((taskItems) => !taskItems.check);
+  //   });
+  // },
   const AddTask = (text) => {
     setTaskItems((prevTask) => {
       return [
-        { day: day, key: Math.random().toString(), text: text, check: false },
+        {
+          day: day,
+          key: Math.random().toString(),
+          text: text,
+          check: false,
+          open: false,
+        },
         ...prevTask,
       ];
     });
     Keyboard.dismiss();
-    // taskItems.map((day) => {
-    //     console.log(day.day);
-    // });
     console.log(taskItems);
-    // console.log('day:' + day);
   };
 
-  // const checkedTask = () => {};
   const renderHiddenItem = (data, rowMap) => (
     <View style={Styles.rowBack}>
       <TouchableOpacity
@@ -77,7 +83,10 @@ function Home({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={[Styles.backRightBtn, Styles.backRightBtnRight]}
-        onPress={() => deleteTask(data.item.key)}
+        onPress={() => {
+          deleteTask(data.item.key);
+          filterItemsDay(day);
+        }}
       >
         <Text style={Styles.backTextWhite}>Delete</Text>
       </TouchableOpacity>
@@ -102,7 +111,11 @@ function Home({ navigation }) {
 
       <View style={Styles.Homepage}>
         <View style={Styles.CalendarTask}>
-          <CalendarContent style={Styles.Calendar} onSelectDay={addDay} />
+          <CalendarContent
+            style={Styles.Calendar}
+            onSelectDay={onSelectDay}
+            filterItemsDay={filterItemsDay}
+          />
         </View>
         <View style={Styles.TodoTask}>
           <ScrollView>
@@ -111,8 +124,8 @@ function Home({ navigation }) {
               rightOpenValue={-145}
               previewRowKey={"0"}
               previewOpenValue={0}
-              previewOpenDelay={3000}
-              data={taskItems}
+              previewOpenDelay={100000}
+              data={task}
               renderItem={({ item }) => (
                 <TouchableOpacity>
                   <Todobox item={item} deleteTask={deleteTask} />
@@ -122,7 +135,11 @@ function Home({ navigation }) {
           </ScrollView>
         </View>
         <View style={Styles.taskPart}>
-          <TaskInsert AddTask={AddTask} />
+          <TaskInsert
+            AddTask={AddTask}
+            filterItemsDay={filterItemsDay}
+            onSelectDay={onSelectDay}
+          />
         </View>
       </View>
     </>
