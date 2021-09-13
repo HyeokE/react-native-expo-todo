@@ -14,55 +14,54 @@ import {
   KeyboardAvoidingView,
   Alert,
 } from "react-native";
-import IoIcons from "react-native-vector-icons/Ionicons";
-import { firebaseInstance, toLogin, authService } from "../Components/frbase";
-import { NavigationContainer } from "@react-navigation/native";
-import { AuthContext } from "../Components/context";
-import * as Google from "expo-google-app-auth";
 
-function Login({ navigation }) {
-  // const { navigation, isLoggedIn } = props;
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-  // const onChangeID = (text) => {
-  //     setEmail(text);
-  //     console.log(email);
-  // };
-  // const onChangePW = (text) => {
-  //     setPassword(text);
-  //     console.log(password);
-  // };
-  const { signInWithGoogleAsync } = React.useContext(AuthContext);
+import { AuthContext } from "../Components/context";
+
+function Login() {
+  const { onChangeID, onChangePW, onLoginBtnClick, signInWithGoogleAsync } =
+    React.useContext(AuthContext);
   return (
     <>
       <View style={Styles.Header}>
         <Text style={{ fontSize: 30 }}>오늘 뭐 해야 되지?</Text>
       </View>
       <View>
-        {/* <View style={Styles.EmailContent}>
-                    <Text style={Styles.EmailPwText}>Email</Text>
-                    <KeyboardAvoidingView style={Styles.taskarea}>
-                        <TextInput name="email" autoCorrect={false} autoCapitalize="none" style={Styles.EmailPwInput} onChangeText={onChangeID} />
-                    </KeyboardAvoidingView>
-                </View>
-                <View style={Styles.PwContent}>
-                    <Text style={Styles.EmailPwText}>Password</Text>
-                    <KeyboardAvoidingView style={Styles.taskarea}>
-                        <TextInput name="password" autoCorrect={false} autoCapitalize="none" style={Styles.EmailPwInput} onChangeText={onChangePW} />
-                    </KeyboardAvoidingView>
-                </View>
-                <View style={Styles.LoginRegister}>
-                    <TouchableOpacity onPress={loginBtnPress}>
-                        <View style={Styles.LoginBtn}>
-                            <Text style={Styles.LoginText}>로그인</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={Styles.RegisterBtn}>
-                            <Text style={Styles.RegisterText}>회원가입</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>{' '} */}
+        <View style={Styles.EmailContent}>
+          <Text style={Styles.EmailPwText}>Email</Text>
+          <KeyboardAvoidingView style={Styles.taskarea}>
+            <TextInput
+              name="email"
+              autoCorrect={false}
+              autoCapitalize="none"
+              style={Styles.EmailPwInput}
+              onChangeText={onChangeID}
+            />
+          </KeyboardAvoidingView>
+        </View>
+        <View style={Styles.PwContent}>
+          <Text style={Styles.EmailPwText}>Password</Text>
+          <KeyboardAvoidingView style={Styles.taskarea}>
+            <TextInput
+              name="password"
+              autoCorrect={false}
+              autoCapitalize="none"
+              style={Styles.EmailPwInput}
+              onChangeText={onChangePW}
+            />
+          </KeyboardAvoidingView>
+        </View>
+        <View style={Styles.LoginRegister}>
+          <TouchableOpacity onclick={onLoginBtnClick}>
+            <View style={Styles.LoginBtn}>
+              <Text style={Styles.LoginText}>로그인</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <View style={Styles.RegisterBtn}>
+              <Text style={Styles.RegisterText}>회원가입</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
         <View style={Styles.anotherLogin}>
           <View>
             <TouchableOpacity
@@ -97,7 +96,7 @@ const Styles = StyleSheet.create({
   //     flexDirection: 'row',
   // },
   Header: {
-    marginTop: "60%",
+    marginTop: "45%",
     marginBottom: "10%",
     flexDirection: "row",
     justifyContent: "space-around",
