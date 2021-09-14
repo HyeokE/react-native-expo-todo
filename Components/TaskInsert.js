@@ -30,7 +30,7 @@ const TaskInsert = ({ AddTask, filterItemsDay, onSelectDay }) => {
           value={text}
           onChangeText={TaskInput}
           autoCorrect={false}
-        ></TextInput>
+        />
         <TouchableOpacity
           onPress={() => {
             AddTask(text);

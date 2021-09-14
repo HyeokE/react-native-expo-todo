@@ -8,6 +8,7 @@ import {
   FlatList,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 
 import Todobox from "../Components/Todobox";
@@ -57,18 +58,22 @@ function Home({ navigation }) {
   //   });
   // },
   const AddTask = (text) => {
-    setTaskItems((prevTask) => {
-      return [
-        {
-          day: day,
-          key: Math.random().toString(),
-          text: text,
-          check: false,
-          open: false,
-        },
-        ...prevTask,
-      ];
-    });
+    if (text.length < 3) {
+      Alert.alert("2글자 이상 입력하세요.");
+    } else {
+      setTaskItems((prevTask) => {
+        return [
+          {
+            day: day,
+            key: Math.random().toString(),
+            text: text,
+            check: false,
+            open: false,
+          },
+          ...prevTask,
+        ];
+      });
+    }
     Keyboard.dismiss();
     console.log(taskItems);
   };
