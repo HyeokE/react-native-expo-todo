@@ -3,23 +3,43 @@ import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 import React from "react";
 import { useState } from "react";
 import {
-  Button,
   View,
   StyleSheet,
   Text,
-  Item,
-  Label,
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
   Alert,
 } from "react-native";
-
+import * as firebase from "firebase";
 import { AuthContext } from "../Components/context";
+const { signInWithGoogleAsync } = React.useContext(AuthContext);
 
-function Login() {
-  const { onChangeID, onChangePW, onLoginBtnClick, signInWithGoogleAsync } =
-    React.useContext(AuthContext);
+function Login({ navigation }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onChangeID = (text) => {
+    setEmail(text);
+
+    console.log(email);
+  };
+  const onChangePW = (text) => {
+    setPassword(text);
+
+    console.log(password);
+  };
+
+  const onLoginBtnClick = () => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((e) => {});
+  };
+
   return (
     <>
       <View style={Styles.Header}>
@@ -51,7 +71,11 @@ function Login() {
           </KeyboardAvoidingView>
         </View>
         <View style={Styles.LoginRegister}>
-          <TouchableOpacity onclick={onLoginBtnClick}>
+          <TouchableOpacity
+            onPress={() => {
+              onLoginBtnClick();
+            }}
+          >
             <View style={Styles.LoginBtn}>
               <Text style={Styles.LoginText}>로그인</Text>
             </View>

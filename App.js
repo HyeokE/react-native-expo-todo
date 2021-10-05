@@ -32,8 +32,6 @@ if (!firebase.apps.length) {
 export default function App() {
   const Drawer = createDrawerNavigator();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const changeCheck = () => {
     setIsLoggedIn((isLoggedIn) => !isLoggedIn);
@@ -100,24 +98,6 @@ export default function App() {
     );
   };
   const authContext = React.useMemo(() => ({
-    onChangeID: (text) => {
-      setEmail(text);
-      console.log(email);
-    },
-    onChangePW: (text) => {
-      setPassword(text);
-      console.log(password);
-    },
-    onLoginBtnClick: () => {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(() => {
-          // AsyncStorage.setItem("key", "I like to save it.");
-          navigation.navigate("Main");
-        })
-        .catch((error) => this.setState({ errorMessage: error.message }));
-    },
     signInWithGoogleAsync: async (navigation) => {
       try {
         const config = await Google.logInAsync({
